@@ -9,6 +9,7 @@ from campaign_planner import (
     FALLBACK_MIN_PROB,
     MIN_PROB_PAID,
     Belief,
+    calibrate_priors,
     plan_campaigns,
     robust_plan,
 )
@@ -69,6 +70,34 @@ class BeliefGuardTests(unittest.TestCase):
             belief.update(ratio, 0.65, 200)
         self.assertFalse(belief.prior_conflict)
         self.assertFalse(belief.contradicted)
+
+
+class CalibrationTests(unittest.TestCase):
+    def setUp(self):
+        profile = _profile()
+        self.beliefs = [_belief(profile, "tariff_1", 0.10 + 0.05 * k, 0.15, target=f"tariff_{8 + k}")
+                        for k in range(6)]
+        self.unpiloted = _belief(profile, "tariff_2", 0.30, 0.15)
+
+    def test_history_pointing_the_wrong_way_pulls_unpiloted_priors_down(self):
+        for belief in self.beliefs:
+            belief.update(-0.6 * belief.hypothesis.prior_mean * 0.65, 0.65, 200)
+        calibration = calibrate_priors(self.beliefs + [self.unpiloted])
+        self.assertLess(calibration.scale, 0)
+        self.assertLess(self.unpiloted.prior_mean, 0)
+        self.assertLess(self.unpiloted.prob_positive, 0.5)
+
+    def test_history_that_holds_is_left_alone(self):
+        for belief in self.beliefs:
+            belief.update(belief.hypothesis.prior_mean * 0.65, 0.65, 200)
+        calibration = calibrate_priors(self.beliefs + [self.unpiloted])
+        self.assertAlmostEqual(calibration.scale, 1.0, delta=0.15)
+        self.assertAlmostEqual(self.unpiloted.prior_mean, 0.30, delta=0.05)
+
+    def test_too_few_pilots_change_nothing(self):
+        self.beliefs[0].update(-0.5, 0.65, 200)
+        self.assertIsNone(calibrate_priors(self.beliefs + [self.unpiloted]))
+        self.assertEqual(self.unpiloted.prior_mean, 0.30)
 
 
 class DecisionTests(unittest.TestCase):

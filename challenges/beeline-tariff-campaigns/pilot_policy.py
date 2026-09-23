@@ -12,7 +12,8 @@ Round 2 — every remaining pilot goes to a finalist whose sign is still unclear
           shortlisted candidates with an unclear sign are next.
 
 Beliefs are normal-normal with the empirical-Bayes prior from candidate
-research. Pilots use sms or push only, never a call: an sms pilot on 200
+research, re-calibrated against the pilots after round 1 and after every
+later pilot (calibrate_priors). Pilots use sms or push only, never a call: an sms pilot on 200
 customers costs 800 units, a call pilot 32,000 (a third of the budget).
 Beliefs are kept at channel multiplier 1.0, so the result extrapolates to
 every other channel through its known multiplier.
@@ -22,7 +23,7 @@ from collections import defaultdict
 from math import exp, pi, sqrt
 from typing import Dict, List, Optional, Sequence, Tuple
 
-from campaign_planner import PER_CUSTOMER_NOISE_SD, Belief, normal_cdf
+from campaign_planner import PER_CUSTOMER_NOISE_SD, Belief, calibrate_priors, normal_cdf
 
 PILOT_CHANNELS = ("sms", "push")
 ROUND1_CANDIDATES = 8
@@ -156,6 +157,7 @@ def run_pilots(env, beliefs: Sequence[Belief]) -> None:
             return
         if not _run(env, belief, ROUND1_SIZE):
             belief.pilotable = False
+    calibrate_priors(beliefs)
     cut_outsiders(beliefs)
 
     while env.pilots_left > 0 and env.remaining_contacts >= MIN_PILOT_CUSTOMERS:
@@ -170,4 +172,5 @@ def run_pilots(env, beliefs: Sequence[Belief]) -> None:
         if not _run(env, belief, n):
             belief.pilotable = False  # a failed pilot does not consume the limit
             continue
+        calibrate_priors(beliefs)
         cut_outsiders(beliefs)

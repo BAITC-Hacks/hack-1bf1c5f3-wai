@@ -43,6 +43,13 @@ CONFLICT_PRIOR_INFLATION = 9.0
 # conservative plan is used. Normal and history-shifted runs stay below 0.11;
 # deliberately contradictory pilots reach 0.85.
 CONFLICT_SHARE = 0.5
+# Population-level calibration of the history prior against the pilots: the
+# scale of "pilot = scale * prior" has a N(1, CALIBRATION_SCALE_SD^2) prior, so
+# weak evidence keeps the history as it is. (An intercept, and never letting
+# the fit narrow a prior, both did worse in stress_eval.py.)
+CALIBRATION_SCALE_SD = 0.5
+MIN_CALIBRATION_POINTS = 4
+MIN_PRIOR_SD = 0.05
 DATA_SEGMENTS = ("NON_USER", "LITE", "HEAVY")
 CALL_SEGMENTS = ("LOW", "MEDIUM", "HIGH")
 
@@ -55,8 +62,12 @@ def normal_cdf(z: float) -> float:
 class Belief:
     """Normal-normal belief with two robustness guards.
 
+    The prior starts as the history-based hypothesis prior and may be
+    re-centred by calibrate_priors() once pilots show how the history maps to
+    this audience.
+
     * Prior-data conflict: when the pooled pilots sit more than CONFLICT_Z
-      standard errors from the prior, the history clearly does not describe
+      standard errors from the prior, the prior clearly does not describe
       this audience, so the prior variance is widened and pilots dominate.
     * Contradicting pilots: when two pilots on the same candidate disagree by
       more than CONFLICT_Z, the documented noise understates reality; the
@@ -66,6 +77,12 @@ class Belief:
     hypothesis: Hypothesis
     observations: List[Tuple[float, float]] = field(default_factory=list)  # (base effect, variance)
     pilotable: bool = True
+    prior_mean: float = field(init=False)
+    prior_sd: float = field(init=False)
+
+    def __post_init__(self):
+        self.prior_mean = self.hypothesis.prior_mean
+        self.prior_sd = self.hypothesis.prior_sd
 
     @property
     def pilots(self) -> int:
@@ -76,13 +93,21 @@ class Belief:
         total = sum(weights)
         return sum(w * y for w, (y, _) in zip(weights, self.observations)) / total, 1.0 / total
 
-    @property
-    def prior_conflict(self) -> bool:
+    def _conflicts_with(self, mean: float, sd: float) -> bool:
         if not self.observations:
             return False
         pooled, variance = self._pooled()
-        gap = abs(pooled - self.hypothesis.prior_mean)
-        return gap > CONFLICT_Z * sqrt(variance + self.hypothesis.prior_sd ** 2)
+        return abs(pooled - mean) > CONFLICT_Z * sqrt(variance + sd ** 2)
+
+    @property
+    def prior_conflict(self) -> bool:
+        """The pilots contradict the current (possibly calibrated) prior."""
+        return self._conflicts_with(self.prior_mean, self.prior_sd)
+
+    @property
+    def history_conflict(self) -> bool:
+        """The pilots contradict what the history predicted for this candidate."""
+        return self._conflicts_with(self.hypothesis.prior_mean, self.hypothesis.prior_sd)
 
     @property
     def contradicted(self) -> bool:
@@ -103,13 +128,13 @@ class Belief:
 
     @property
     def precision(self) -> float:
-        prior_var = self.hypothesis.prior_sd ** 2 * (CONFLICT_PRIOR_INFLATION if self.prior_conflict else 1.0)
+        prior_var = self.prior_sd ** 2 * (CONFLICT_PRIOR_INFLATION if self.prior_conflict else 1.0)
         return 1.0 / prior_var + sum(1.0 / v for v in self._variances())
 
     @property
     def mean(self) -> float:
-        prior_var = self.hypothesis.prior_sd ** 2 * (CONFLICT_PRIOR_INFLATION if self.prior_conflict else 1.0)
-        weighted = self.hypothesis.prior_mean / prior_var + sum(
+        prior_var = self.prior_sd ** 2 * (CONFLICT_PRIOR_INFLATION if self.prior_conflict else 1.0)
+        weighted = self.prior_mean / prior_var + sum(
             y / v for (y, _), v in zip(self.observations, self._variances()))
         return weighted / self.precision
 
@@ -133,6 +158,43 @@ class Belief:
             return
         variance = 1.0 / self.observation_precision(multiplier, n_customers)
         self.observations.append((observed_ratio / multiplier, variance))
+
+
+@dataclass(frozen=True)
+class Calibration:
+    scale: float
+    scale_sd: float
+    residual_sd: float
+    points: int
+
+
+def calibrate_priors(beliefs: Sequence[Belief]) -> Optional[Calibration]:
+    """Check the history prior against the pilots across candidates and re-centre it.
+
+    Fits pilot = scale * history_prior + residual over the piloted candidates,
+    with a N(1, CALIBRATION_SCALE_SD^2) prior on the scale. Every candidate's
+    prior, piloted or not, then becomes
+    N(scale * history_prior, residual^2 + history_prior^2 * var(scale)).
+    If the history overstates effects or points the wrong way, the unpiloted
+    candidates are corrected before planning.
+    """
+    data = [(b.hypothesis.prior_mean,) + b._pooled() for b in beliefs if b.observations]
+    if len(data) < MIN_CALIBRATION_POINTS:
+        return None
+    m, y, v = (np.array(column, dtype=float) for column in zip(*data))
+    residual_var = float(np.mean([b.hypothesis.prior_sd ** 2 for b in beliefs if b.observations]))
+    scale_precision = scale = 0.0
+    for _ in range(10):
+        weights = 1.0 / (residual_var + v)
+        scale_precision = 1.0 / CALIBRATION_SCALE_SD ** 2 + float((weights * m * m).sum())
+        scale = (1.0 / CALIBRATION_SCALE_SD ** 2 + float((weights * m * y).sum())) / scale_precision
+        residual_var = max(0.0, float(np.mean((y - scale * m) ** 2 - v)))
+    scale_var = 1.0 / scale_precision
+    for belief in beliefs:
+        history_mean = belief.hypothesis.prior_mean
+        belief.prior_mean = scale * history_mean
+        belief.prior_sd = max(sqrt(residual_var + history_mean ** 2 * scale_var), MIN_PRIOR_SD)
+    return Calibration(scale, sqrt(scale_var), sqrt(residual_var), len(data))
 
 
 @dataclass
@@ -364,7 +426,7 @@ def robust_plan(
     """Main plan, or the conservative push-only plan when the evidence is shaky.
 
     The conservative plan is used when the pilots are broadly contradictory
-    (CONFLICT_SHARE of piloted candidates contradict the prior or each other),
+    (CONFLICT_SHARE of piloted candidates contradict the history or each other),
     or when it is worth more than the main plan at the pessimistic posterior
     quantile of the whole plan.
     """
@@ -375,7 +437,7 @@ def robust_plan(
                                  FALLBACK_MIN_PROB, 1.0)
 
     piloted = [b for b in beliefs if b.pilots]
-    flagged = [b for b in piloted if b.contradicted or b.prior_conflict]
+    flagged = [b for b in piloted if b.contradicted or b.history_conflict]
     if safe and piloted and len(flagged) >= CONFLICT_SHARE * len(piloted):
         return safe, f"conservative: {len(flagged)}/{len(piloted)} piloted candidates have contradictory evidence"
 
