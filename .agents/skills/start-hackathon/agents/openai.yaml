@@ -1,0 +1,4 @@
+﻿interface:
+  display_name: "Start Hackathon"
+  short_description: "Activate HackAlem sprint workflow"
+  default_prompt: "Activate HackAlem sprint mode for this repository."
