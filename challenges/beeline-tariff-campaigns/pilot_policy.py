@@ -2,9 +2,9 @@
 
 Round 1 — medium pilots (ROUND1_SIZE customers) on the ROUND1_CANDIDATES
           best-scoring shortlisted candidates, so each gets a first look.
-Cut     — after every update, drop clear outsiders: candidates that are
-          negative with SIGN_Z confidence, or whose upper bound is below
-          another target's lower bound in the same cell.
+Cut     — after every update, drop clear outsiders: candidates whose
+          posterior P(effect > 0) is below 1 - SIGN_CONFIDENCE, or that are
+          that likely to lose to another target in the same cell.
 Round 2 — every remaining pilot goes to a finalist whose sign is still unclear
           (the one with the largest knowledge gradient), sized 150-200 so the
           pilot can settle the sign. A candidate gets at most
@@ -19,10 +19,10 @@ every other channel through its known multiplier.
 """
 
 from collections import defaultdict
-from math import erf, exp, pi, sqrt
+from math import exp, pi, sqrt
 from typing import Dict, List, Optional, Sequence, Tuple
 
-from campaign_planner import PER_CUSTOMER_NOISE_SD, Belief
+from campaign_planner import PER_CUSTOMER_NOISE_SD, Belief, normal_cdf
 
 PILOT_CHANNELS = ("sms", "push")
 ROUND1_CANDIDATES = 8
@@ -30,7 +30,8 @@ ROUND1_SIZE = 60
 ROUND2_MIN_SIZE = 150
 MAX_PILOT_CUSTOMERS = 200
 MIN_PILOT_CUSTOMERS = 10
-SIGN_Z = 1.645  # one-sided 95%
+SIGN_CONFIDENCE = 0.95  # the sign counts as settled beyond this posterior probability
+SIGN_Z = 1.645  # the matching one-sided normal quantile
 # An effect near zero never settles its sign; cap it so it cannot absorb round 2.
 MAX_PILOTS_PER_CANDIDATE = 3
 
@@ -39,16 +40,12 @@ def _normal_pdf(z: float) -> float:
     return exp(-0.5 * z * z) / sqrt(2 * pi)
 
 
-def _normal_cdf(z: float) -> float:
-    return 0.5 * (1 + erf(z / sqrt(2)))
-
-
 def prob_positive(belief: Belief) -> float:
-    return _normal_cdf(belief.mean / belief.sd)
+    return belief.prob_positive
 
 
 def sign_unclear(belief: Belief) -> bool:
-    return abs(belief.mean) < SIGN_Z * belief.sd
+    return 1 - SIGN_CONFIDENCE < belief.prob_positive < SIGN_CONFIDENCE
 
 
 def _by_cell(beliefs: Sequence[Belief]) -> Dict[tuple, List[Belief]]:
@@ -65,12 +62,11 @@ def cut_outsiders(beliefs: Sequence[Belief]) -> List[Belief]:
         for belief in cell_beliefs:
             if not belief.pilotable:
                 continue
-            upper = belief.mean + SIGN_Z * belief.sd
-            rival_lower = max(
-                (o.mean - SIGN_Z * o.sd for o in cell_beliefs if o is not belief),
-                default=float("-inf"),
+            loses_to_rival = any(
+                normal_cdf((o.mean - belief.mean) / sqrt(o.sd ** 2 + belief.sd ** 2)) > SIGN_CONFIDENCE
+                for o in cell_beliefs if o is not belief
             )
-            if upper < 0 or upper < rival_lower:
+            if belief.prob_positive < 1 - SIGN_CONFIDENCE or loses_to_rival:
                 belief.pilotable = False
                 cut.append(belief)
     return cut
@@ -92,7 +88,7 @@ def knowledge_gradient(belief: Belief, cell_beliefs: Sequence[Belief], multiplie
     if sigma <= 0:
         return 0.0
     z = -abs(belief.mean - alternative) / sigma
-    return sigma * (z * _normal_cdf(z) + _normal_pdf(z)) * belief.hypothesis.cell.arpu_sum
+    return sigma * (z * normal_cdf(z) + _normal_pdf(z)) * belief.hypothesis.cell.arpu_sum
 
 
 def choose_finalist(beliefs: Sequence[Belief], multiplier: float) -> Optional[Tuple[Belief, int]]:
