@@ -40,6 +40,9 @@ def _historical_priors(path: Optional[Path]) -> Dict[Tuple[str, str, str], Tuple
         return {}
 
     history = pd.read_csv(path)
+    # The supplied history contains exact duplicate events. Remove them before
+    # computing transition means so duplicated rows do not overweight a prior.
+    history = history.drop_duplicates()
     history = history[history["AVG_ARPU_PREV_3M"] >= 100].copy()
     history["arpu_segment"] = pd.cut(
         history["AVG_ARPU_PREV_3M"],
