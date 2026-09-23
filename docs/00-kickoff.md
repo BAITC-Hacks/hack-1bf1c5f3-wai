@@ -2,6 +2,8 @@
 
 This project addresses the Beeline tariff marketing campaigns case. The detailed implementation and submission checklist is in [beeline-case-requirements.md](beeline-case-requirements.md).
 
+The three-person ownership and timed task board is in [team-tasks-beeline.md](team-tasks-beeline.md).
+
 ## Prompt and constraints
 
 - Track: Beeline tariff marketing campaigns.

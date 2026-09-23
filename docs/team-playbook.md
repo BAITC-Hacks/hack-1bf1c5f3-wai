@@ -1,5 +1,7 @@
 # Team playbook
 
+For the current Beeline case, use the [three-person task board](team-tasks-beeline.md). Its Python evaluator and submission tasks replace the generic UI and deployment milestones below; the released case does not require a frontend.
+
 ## Roles
 
 | Role | Owns | Shares |

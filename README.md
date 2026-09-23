@@ -1,6 +1,8 @@
 # HackAlem starter
 
-A small, schema-agnostic app shell for turning supplied records into an evidence-backed finding. Choose the track and user journey after the organizers release the prompt; replace the sample input and tailor the interface then.
+A schema-agnostic web starter for turning supplied records into an evidence-backed finding. The Beeline case has now been released; its required deliverable is a Python agent, which has not yet been implemented.
+
+The released Beeline case package is in `challenges/beeline-tariff-campaigns/`. The [three-person sprint plan](docs/team-tasks-beeline.md) tracks the required Python agent, evaluation, and submission work. The web app below is still the original starter and is not the case submission.
 
 ## Run locally
 
