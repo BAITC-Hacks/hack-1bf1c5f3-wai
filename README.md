@@ -11,6 +11,7 @@ The current agent is a runnable baseline for the three-person team. The supplied
 | `challenges/beeline-tariff-campaigns/agent.py` | Required `Agent.act(env)` entry point and pilot loop; captain |
 | `challenges/beeline-tariff-campaigns/candidate_research.py` | Audience cells and weak historical tariff hypotheses; data lead |
 | `challenges/beeline-tariff-campaigns/campaign_planner.py` | Turns pilot observations into resource-checked final campaigns; planner and QA lead |
+| `challenges/beeline-tariff-campaigns/llm_selector.py` | Optional bounded LLM selection from validated pilot hypotheses; deterministic fallback remains available |
 | `challenges/beeline-tariff-campaigns/requirements.txt` | Python dependencies |
 | `challenges/beeline-tariff-campaigns/submission.csv` | Reproducible output from `make_submission.py`; regenerate after every policy change |
 | `challenges/beeline-tariff-campaigns/tests/` | Public-contract and reproducibility checks |
@@ -41,11 +42,13 @@ The evaluator should show at least one pilot and no rejected or clipped final ca
 
 ## Current decision flow
 
-1. `candidate_research.py` groups the supplied audience into disjoint current-tariff, ARPU, and data-use cells. It uses historical tariff changes as a weak ordering prior and omits cells with missing required filters.
-2. `agent.py` pilots up to three candidate cells through the public `env.run_pilot` interface, recording the observed ratio, actual contacts, and cost.
-3. `campaign_planner.py` discounts noisy observations by one pilot standard error, selects at most three disjoint final campaigns, and checks audience size, remaining contacts, and remaining money before returning them.
+1. `candidate_research.py` groups the supplied audience by current tariff and ARPU segment, then proposes target tariffs using weak historical priors.
+2. `campaign_planner.py` ranks pilot hypotheses by their expected decision value. At pilots 1, 6, 11, and 16, `llm_selector.py` may choose one of the top five if `OPENAI_API_KEY` is set. The model sees only aggregate synthetic data and previous pilot results; Python validates its choice and controls the channel, sample size, budget, and limits. A successful AI-assisted choice is printed as `[AI] Pilot ...`.
+3. `agent.py` runs up to 20 pilots through `env.run_pilot` and updates Bayesian beliefs from observed ratios. If the key is unavailable, the API request fails, or the returned choice is invalid, the top deterministic hypothesis is used. `campaign_planner.py` then selects up to 10 resource-checked final campaigns and channels.
 
-The baseline uses SMS for sufficiently positive pilots and a low-cost push fallback otherwise. It has no LLM or external account dependency. Historical transition frequency is not an absolute conversion probability; the history covers a different audience. The team should improve exploration, channel choice, uncertainty treatment, and resilience to hidden effects without tuning constants to the mock score.
+The LLM is optional, not a requirement for the agent to run. The request uses Python's standard library, so no additional package is needed. The default model is `gpt-4o-mini`; set `OPENAI_MODEL` to a compatible model available to your API project if needed. Keep your personal key out of the repository and set `OPENAI_API_KEY` only in your local environment; the organizers say they will provide this variable during judging. No-key runs use no external API. Historical transition frequency is not an absolute conversion probability; the history covers a different audience. Mock scores do not predict the hidden score.
+
+For an AI-assisted local check, set `OPENAI_API_KEY` in your shell, run `python local_eval.py`, and look for `[AI] Pilot ...` lines. Then run `python make_submission.py` twice **under the same key/model configuration** and compare the resulting CSVs. LLM outputs are not guaranteed to be reproducible, so a key-enabled submission must be checked before handoff. Never commit `.env`, `.env.local`, or a key; both files are gitignored, but the key should ideally stay outside the repository entirely.
 
 `agent.py` currently imports the two team helper modules. Keep them in the submitted repository, or fold their code into `agent.py` before the final handoff if the organizer collects only the named submission artifacts. Regenerate `submission.csv` from that exact final code.
 

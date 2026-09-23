@@ -68,8 +68,8 @@ def _normal_cdf(z: float) -> float:
     return 0.5 * (1 + erf(z / sqrt(2)))
 
 
-def next_pilot(beliefs: Sequence[Belief], multiplier: float) -> Optional[Belief]:
-    """Pick the hypothesis whose pilot has the largest knowledge gradient.
+def rank_pilots(beliefs: Sequence[Belief], multiplier: float) -> List[Tuple[Belief, float]]:
+    """Rank pilotable hypotheses by their knowledge gradient.
 
     The decision per cell is "best target, or nothing". A pilot is worth what
     it is expected to improve that decision, scaled by the cell's ARPU mass.
@@ -78,7 +78,7 @@ def next_pilot(beliefs: Sequence[Belief], multiplier: float) -> Optional[Belief]
     for belief in beliefs:
         by_cell[belief.hypothesis.cell.key].append(belief)
 
-    best, best_score = None, 0.0
+    ranked = []
     for cell_beliefs in by_cell.values():
         cell = cell_beliefs[0].hypothesis.cell
         n = min(MAX_PILOT_CUSTOMERS, cell.size)
@@ -94,9 +94,15 @@ def next_pilot(beliefs: Sequence[Belief], multiplier: float) -> Optional[Belief]
                 continue
             z = -abs(belief.mean - alternative) / sigma
             score = sigma * (z * _normal_cdf(z) + _normal_pdf(z)) * cell.arpu_sum
-            if score > best_score:
-                best, best_score = belief, score
-    return best
+            if score > 0:
+                ranked.append((belief, score))
+    return sorted(ranked, key=lambda item: item[1], reverse=True)
+
+
+def next_pilot(beliefs: Sequence[Belief], multiplier: float) -> Optional[Belief]:
+    """Preserve the deterministic pilot choice used without an API key."""
+    ranked = rank_pilots(beliefs, multiplier)
+    return ranked[0][0] if ranked else None
 
 
 @dataclass
