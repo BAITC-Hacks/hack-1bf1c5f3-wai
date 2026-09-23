@@ -1,7 +1,7 @@
 """Paired official evaluations against a participant agent saved in Git.
 
 Run from the challenge directory, for example:
-python benchmark_agents.py --baseline-ref 0655b5c --start-seed 30 --runs 30
+python experiments/benchmark_agents.py --baseline-ref 0655b5c --start-seed 30 --runs 30
 This compares pilot noise seeds, not different hidden judging effect models.
 """
 
@@ -15,12 +15,13 @@ import sys
 import time
 import types
 
+HERE = Path(__file__).resolve().parents[1]
+ROOT = HERE.parents[1]
+sys.path.insert(0, str(HERE))
+
 from agent import Agent
 from local_eval import evaluate_agent
 
-
-HERE = Path(__file__).resolve().parent
-ROOT = HERE.parents[1]
 MODULES = ("candidate_research", "campaign_planner", "agent")
 
 

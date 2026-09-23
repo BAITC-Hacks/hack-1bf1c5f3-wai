@@ -1,11 +1,16 @@
 """Coverage, adaptation and recovery checks for the borrowed history model."""
 
 from pathlib import Path
+import sys
 import unittest
 from unittest.mock import patch
 
 import numpy as np
 import pandas as pd
+
+# Frozen research snapshots use the original flat module import names.
+# Keep those helpers in experiments while preserving the snapshot source.
+sys.path.append(str(Path(__file__).resolve().parents[1] / "experiments"))
 
 from experiments.integration_rank_snapshot import candidate_research as research
 from agent import Agent

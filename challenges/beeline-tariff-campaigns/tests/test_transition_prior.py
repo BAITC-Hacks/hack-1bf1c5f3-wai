@@ -5,7 +5,7 @@ import unittest
 import numpy as np
 import pandas as pd
 
-from transition_prior import MIN_EFFECT_SD, MIN_SUPPORT, estimate_transitions
+from experiments.transition_prior import MIN_EFFECT_SD, MIN_SUPPORT, estimate_transitions
 
 TARIFFS = pd.DataFrame({
     "tariff_plan_code": ["t1", "t2", "t3", "t4"],

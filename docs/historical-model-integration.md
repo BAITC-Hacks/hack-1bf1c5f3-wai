@@ -6,7 +6,7 @@ Date: 2026-09-23. Synthetic challenge data and effects only; these are not actua
 
 ## What was implemented
 
-The reusable [transition_prior.py](../challenges/beeline-tariff-campaigns/transition_prior.py) comes from teammate commit `e2b864d`. It models historical transitions using price-gap regression, destination effects, pair effects and smoothed destination shares. No dependencies beyond existing numpy and pandas were added.
+The reusable [transition_prior.py](../challenges/beeline-tariff-campaigns/experiments/transition_prior.py) comes from teammate commit `e2b864d`. It models historical transitions using price-gap regression, destination effects, pair effects and smoothed destination shares. No dependencies beyond existing numpy and pandas were added.
 
 Both selected integrations kept individual source-tariff/ARPU cells, 189 target hypotheses across all 63 cells, the existing pilot selector, uncertainty penalty for push, resource allocation, and recovery after completed pilots. They also fall back to the original historical/price candidate logic if the new model fails or produces no finite estimates for a cell.
 

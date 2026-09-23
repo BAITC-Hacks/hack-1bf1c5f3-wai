@@ -39,7 +39,7 @@ Raw results, baseline commit, and source hashes: [final_comparison_30_59.json](.
 Reproduce from the challenge directory:
 
 ```powershell
-python benchmark_agents.py --baseline-ref 0655b5c --start-seed 30 --runs 30 --output experiments/recheck.json
+python experiments/benchmark_agents.py --baseline-ref 0655b5c --start-seed 30 --runs 30 --output experiments/recheck.json
 ```
 
 ## Independent synthetic effect scenarios
