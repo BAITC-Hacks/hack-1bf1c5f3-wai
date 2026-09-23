@@ -1,16 +1,16 @@
 # Three person Beeline sprint plan
 
-This is the working task board for the Beeline tariff campaigns case. The judge's primary path is the Python agent in `challenges/beeline-tariff-campaigns/`: run pilots through `env.run_pilot`, return 1 to 10 valid campaigns, and regenerate `submission.csv`. The Next.js starter is already runnable, but the case does not require a frontend or deployment. Spend the five-hour window on the Python submission and its reproducibility.
+This is the working task board for the Beeline tariff campaigns case. The judge's primary path is the Python agent in `challenges/beeline-tariff-campaigns/`: run pilots through `env.run_pilot`, return 1 to 10 valid campaigns, and regenerate `submission.csv`. The repository has been trimmed to this Python submission path; the case does not require a frontend or deployment. Spend the five-hour window on the agent and its reproducibility.
 
 ## Current state and dependencies
 
 | Item | Observed state | Consequence |
 | --- | --- | --- |
 | Challenge package | `environment.py`, `scoring_core.py`, `local_eval.py`, `make_submission.py`, and `agent_template.py` are present | The interface and scoring mechanics can be tested locally |
-| Required submission | No `agent.py`, `submission.csv`, or Python `requirements.txt` yet | No valid submission or evaluator run exists |
-| Python runtime | The current `python3` cannot import `pandas`; the supplied evaluator also imports `numpy` | Install and record Python dependencies before the first evaluator run |
+| Required submission | No `agent.py` or `submission.csv`; `challenges/beeline-tariff-campaigns/requirements.txt` is present | No valid submission or evaluator run exists until `agent.py` is implemented |
+| Python runtime | Verify the selected Python environment can import `pandas` and `numpy` | Install dependencies from the challenge `requirements.txt` before evaluation |
 | Dataset | All five case data CSVs and both dictionaries are present | Candidate research can start immediately |
-| Top-level app and README | Still describe a generic Next.js upload and analysis starter | Replace the README with truthful Python setup and verification instructions before submission |
+| Top-level README | Describes the Python task and points to this plan | Keep setup and verification instructions aligned with the implementation |
 
 Read [case requirements](beeline-case-requirements.md), `challenges/beeline-tariff-campaigns/PARTICIPANT_GUIDE.md`, and the evaluator code before editing the policy. Run case commands **from the challenge directory**, because the supplied scripts read `data/...` and `customer_profile.csv` relative to the current directory:
 
@@ -29,7 +29,7 @@ The three people should take separate file areas during development. The captain
 
 ### Person 1 — Captain and agent integration
 
-**C1. Establish a valid baseline, 45 minutes.** Create `challenges/beeline-tariff-campaigns/requirements.txt` for the actual Python libraries used and a minimal `agent.py` with `Agent.act(env)`. It must make at least one affordable pilot, use its observed result, and return at least one valid campaign even when a pilot is disappointing. Use only the public `env` interface and participant data. Acceptance: `python local_eval.py` finishes, reports `Пилотов проведено > 0`, and prints no `Кампания ... отброшена` message. This task unblocks everyone.
+**C1. Establish a valid baseline, 45 minutes.** Confirm `challenges/beeline-tariff-campaigns/requirements.txt` matches the actual Python libraries used and implement a minimal `agent.py` with `Agent.act(env)`. It must make at least one affordable pilot, use its observed result, and return at least one valid campaign even when a pilot is disappointing. Use only the public `env` interface and participant data. Acceptance: `python local_eval.py` finishes, reports `Пилотов проведено > 0`, and prints no `Кампания ... отброшена` message. This task unblocks everyone.
 
 **C2. Own the pilot decision loop, 100 minutes.** Consume candidate hypotheses from Person 2, call pilots with valid segments and 10 to 200 customers, update estimates using the returned `observed_lift_ratio` and actual `n_customers`, and preserve `remaining_budget`, `remaining_contacts`, and `pilots_left`. Use the noisy observation to change the final selection; a fixed campaign list after pilots does not meet the case. Catch pilot and optional LLM failures and return a valid fallback. Acceptance: different pilot observations can change the returned plan, and a failed optional API call does not crash `act`.
 
@@ -72,7 +72,7 @@ The planned work is about 250 minutes per person, leaving roughly 50 minutes for
 
 ## Risks and scope decisions
 
-- **Environment mismatch:** `pandas` is absent from the current Python interpreter; `numpy` has not been checked independently. Create a clean environment and pin the working dependencies; a successful npm build does not validate the Python submission.
+- **Environment mismatch:** Confirm `pandas` and `numpy` are available in the Python interpreter used for evaluation. A successful check in another runtime does not validate the submission environment.
 - **Noisy pilots and hidden effects:** Small pilots can reverse the apparent sign, and judging effects differ from the mock. Use support counts and uncertainty; optimize the decision procedure rather than the seed-42 score.
 - **Sparse or missing fields:** Blank profile fields and unobserved historical transitions can produce empty or misleading segments. Filter or back off explicitly.
 - **Evaluator truncation:** An apparently successful run may have silently clipped campaigns. Inspect every campaign detail and leave resource headroom.

@@ -1,26 +1,39 @@
-# HackAlem starter
+# Beeline Tariff Campaign Agent
 
-A schema-agnostic web starter for turning supplied records into an evidence-backed finding. The Beeline case has now been released; its required deliverable is a Python agent, which has not yet been implemented.
+A Python agent for the HackAlem Beeline tariff marketing campaigns case. It uses noisy pilot campaigns to learn which subscriber segments and tariff offers are worth contacting, then returns up to 10 campaigns while respecting the budget and contact limits. The supplied data is synthetic and does not represent real Beeline customers or performance.
 
-The released Beeline case package is in `challenges/beeline-tariff-campaigns/`. The [three-person sprint plan](docs/team-tasks-beeline.md) tracks the required Python agent, evaluation, and submission work. The web app below is still the original starter and is not the case submission.
+## Challenge package
 
-## Run locally
+The organizer-provided task, data, environment, and evaluation scripts are in [`challenges/beeline-tariff-campaigns`](challenges/beeline-tariff-campaigns):
 
-Requires Node.js 20.11 or newer.
+- `PARTICIPANT_GUIDE.md` is the authoritative task description.
+- `customer_profile.csv` and `data/*.csv` contain the supplied synthetic audience and historical data.
+- `environment.py` defines the agent-facing pilot interface.
+- `mock_environment.py` and `scoring_core.py` support local evaluation; mock effects validate mechanics, not the judging score.
+- `local_eval.py` checks the agent against the mock environment.
+- `make_submission.py` generates the reproducible `submission.csv` artifact.
+- `agent_template.py` is a deliberately weak example, not a finished solution.
+
+The [three-person sprint plan](docs/team-tasks-beeline.md) contains proposed ownership, dependencies, data findings, and acceptance checks.
+
+## Required implementation
+
+Create `agent.py` in `challenges/beeline-tariff-campaigns` with an `Agent` class and an `act(env)` method. It must run at least one pilot through `env.run_pilot(...)`, use the observed pilot results in its choices, and return 1–10 valid campaign dictionaries. Keep all decisions within the simultaneous limits described in the participant guide. The judge journey is command-line based; this task does not require a frontend or web deployment.
+
+## Run and verify
+
+Run commands from the challenge directory so the supplied scripts can resolve their relative data paths:
 
 ```powershell
-npm install
-npm run dev
+cd challenges/beeline-tariff-campaigns
+python -m pip install -r requirements.txt
+python local_eval.py
+python local_eval.py --runs 10
+python make_submission.py
 ```
 
-Open http://localhost:3000, load the sample data, and run the agent. The no-key mode uses deterministic tools and shows the same evidence trace as live mode. To enable live analysis, copy `.env.example` to `.env.local` and set `OPENAI_API_KEY` there. Keep the key server-side and out of Git.
+The evaluator should report at least one pilot, no rejected campaigns, and no resource-limit violations. Check its detailed output for silently clipped campaigns. The multi-run command checks stability across random pilot seeds. Regenerate `submission.csv` from the final `agent.py` before submission.
 
-## What's here
+## Current status
 
-- `src/lib/data/` parses CSV, TSV, and JSON records and calculates reproducible summaries.
-- `src/lib/agent/` exposes narrow tools and records each call in the trace.
-- `src/app/` provides upload, evidence, and analysis screens.
-- `sample-data/` contains neutral synthetic data for a quick smoke test.
-- `docs/00-kickoff.md` is the task and rubric intake sheet.
-
-Before building a feature, fill the kickoff sheet, choose one judge journey, and write its acceptance test. Keep the first change small and runnable.
+The organizer package and task documentation are present. The required team implementation `challenges/beeline-tariff-campaigns/agent.py` has not yet been created, so the evaluator and submission commands will not work until that file is implemented. No frontend is part of the case requirements.

@@ -1,6 +1,6 @@
 # Beeline tariff marketing campaigns requirements
 
-This document summarizes the organizer-provided case, `HackAlem AI_ Beeline Tariff Marketing Campaigns Case.docx`. It is the implementation and submission checklist for the project. All case data and figures are synthetic and must not be presented as real Beeline business data or performance.
+This document summarizes the organizer-provided `PARTICIPANT_GUIDE.md` in `challenges/beeline-tariff-campaigns`. It is the implementation and submission checklist for the project. All case data and figures are synthetic and must not be presented as real Beeline business data or performance.
 
 ## Problem and user
 
@@ -149,7 +149,7 @@ The repository README must explain the solution, architecture, technologies, dep
 
 ## Acceptance checks
 
-Before submission, run:
+Run these commands with the working directory set to `challenges/beeline-tariff-campaigns` because the supplied scripts use relative data paths:
 
 ```bash
 python local_eval.py

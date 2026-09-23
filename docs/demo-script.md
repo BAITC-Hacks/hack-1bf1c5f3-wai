@@ -1,14 +1,13 @@
-# Two-minute demo
+# Two-minute challenge demo
 
-Fill this after the task and rubric are released. Use the same path for every rehearsal.
+Run these commands from `challenges/beeline-tariff-campaigns`:
 
 | Time | Say | Show |
 | --- | --- | --- |
-| 0:00-0:15 | Who has the problem and why it matters. | User and task in one sentence. |
-| 0:15-0:35 | What input the user provides. | Upload the sample or supplied input. |
-| 0:35-1:05 | What the system finds, with its source. | Result and cited records or metrics. |
-| 1:05-1:35 | What action the system recommends. | Reviewable output and tool trace. |
-| 1:35-1:50 | How the user checks or acts on it. | Human decision or next step. |
-| 1:50-2:00 | Why this is useful and what comes next. | Close on the rubric outcome. |
+| 0:00–0:20 | A marketing analyst needs to choose profitable tariff campaigns despite uncertain outcomes and contact costs. | State the objective: net ARPU uplift minus communication spend. Mention all data is synthetic. |
+| 0:20–0:50 | The agent explores candidate audience/offer pairs with limited pilots. | Run `python local_eval.py`; point to pilot count, campaign choices, spend, and score. |
+| 0:50–1:20 | Pilot results inform the final plan, subject to the hard budget and reach limits. | Show the relevant decision logic in `agent.py` and the accepted campaign rows in the evaluator output. |
+| 1:20–1:45 | The result is reproducible and the agent handles noisy pilot outcomes. | Run `python local_eval.py --runs 10`; summarize spread and positive runs without claiming mock results predict judging results. |
+| 1:45–2:00 | The delivered artifacts are runnable code and its generated plan. | Run `python make_submission.py`; show `submission.csv`. |
 
-Keep a local sample path that works without network access or API credentials.
+The local evaluator uses mock effects. It demonstrates the interface, pilot use, constraints, scoring mechanics, and reproducibility; it does not predict the hidden judging score. There is no frontend or deployed URL because the case requires a Python agent and CSV submission.

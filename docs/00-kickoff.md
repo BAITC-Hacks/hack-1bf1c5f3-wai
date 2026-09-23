@@ -1,6 +1,6 @@
 # Kickoff sheet
 
-This project addresses the Beeline tariff marketing campaigns case. The detailed implementation and submission checklist is in [beeline-case-requirements.md](beeline-case-requirements.md).
+This project addresses the Beeline tariff marketing campaigns case. The organizer's [participant guide](../challenges/beeline-tariff-campaigns/PARTICIPANT_GUIDE.md) is authoritative; the [requirements summary](beeline-case-requirements.md) translates it into an implementation checklist.
 
 The three-person ownership and timed task board is in [team-tasks-beeline.md](team-tasks-beeline.md).
 
@@ -33,7 +33,7 @@ The three-person ownership and timed task board is in [team-tasks-beeline.md](te
 
 | Must demo | If time allows | Cut |
 | --- | --- | --- |
-| Valid `Agent.act(env)`; adaptive pilot use; hard-limit enforcement; valid campaigns; deterministic fallback; reproducible submission | Confidence-aware allocation; sequential pilot refinement; segment-specific channel choice; multi-run robustness reporting | Extra dashboards, unrelated APIs, and features that do not improve evaluator performance or reproducibility |
+| Valid `Agent.act(env)`; adaptive pilot use; hard-limit enforcement; valid campaigns; deterministic fallback; reproducible submission | Confidence-aware allocation; sequential pilot refinement; segment-specific channel choice; multi-run robustness reporting | Frontend, unrelated APIs, deployment, and features that do not improve evaluator performance or reproducibility |
 
 ## Acceptance test
 
