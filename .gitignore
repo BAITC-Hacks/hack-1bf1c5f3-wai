@@ -6,3 +6,7 @@ coverage/
 .env
 .env.local
 *.log
+
+# Beeline challenge data is private to the hackathon; keep it local.
+challenges/beeline-tariff-campaigns/*.csv
+challenges/beeline-tariff-campaigns/data/
