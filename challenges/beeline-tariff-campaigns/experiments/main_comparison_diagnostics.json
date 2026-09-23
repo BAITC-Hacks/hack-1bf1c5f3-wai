@@ -1,0 +1,37 @@
+{
+  "current": {
+    "hypotheses": 189,
+    "cells": 63,
+    "audience_size": 23341,
+    "arpu_by_segment": {
+      "LOW": 7765560.560535905,
+      "MID": 31683256.360900056,
+      "HIGH": 110879727.0752291
+    },
+    "sd_min": 0.15,
+    "sd_median": 0.15,
+    "sd_max": 0.15,
+    "selection_failure": {
+      "completed_pilots": 3,
+      "final_campaigns": 10,
+      "error": null
+    }
+  },
+  "main": {
+    "hypotheses": 30,
+    "cells": 16,
+    "audience_size": 14738,
+    "arpu_by_segment": {
+      "LOW": 7028283.553990934,
+      "MID": 26556013.416138396,
+      "HIGH": 52765039.19965559
+    },
+    "sd_min": 0.05,
+    "sd_median": 0.20111304415844197,
+    "sd_max": 0.5490353504971659,
+    "selection_failure": {
+      "completed_pilots": 3,
+      "error": "RuntimeError('Injected selection failure')"
+    }
+  }
+}

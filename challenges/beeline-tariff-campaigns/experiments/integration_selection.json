@@ -1,0 +1,13 @@
+{
+  "selected": "eb_fixed",
+  "reason": "Highest development mock mean; improvements in independent, moderate and reversed worlds; strong-history mean -4.42%. Keeps 189 candidates and original policy. No held-out results inspected.",
+  "candidate_equivalence": true,
+  "candidate_count": 189,
+  "development_report_sha256": "cf56789fe6a34d886e279f316963b88b9adbe74a668f4d1959c9cdcc7c22d85b",
+  "source_sha256": {
+    "agent": "64248f88b3f41896cb3511e38a909588e475532ccd3b21181f4a98551fcace87",
+    "candidate_research": "27a632084aecb4e86e8c82604fd9971f50fc48ed34a81ec36119ac2f6f26450a",
+    "campaign_planner": "594c5b25d713e497642bee6569fb1aba03d18fa07137bf48e09037f25da2096b",
+    "transition_prior": "0a67916d8139000d6f7cc17bb7455737b937a31f01432d87a0772c852663bb58"
+  }
+}

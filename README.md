@@ -4,6 +4,8 @@ This repository contains a Python agent for the HackAlem tariff campaign case. I
 
 The agent uses pilot feedback to choose campaigns and allocate resources. The supplied local evaluator tests the interface and scoring mechanics against mock effects. Its score does not predict the hidden judging score. See the [strategy experiment report](docs/agent-improvement-results.md) for comparisons against the previous agent and the validation limits.
 
+The [historical-model integration study](docs/historical-model-integration.md) tests borrowing teammate main's empirical-Bayes model. Two integrations improved local mock scores but failed their reserved scenario checks, so the production policy remains unchanged. The reusable `transition_prior.py` and frozen integrations are research artifacts; the active agent does not import them.
+
 ## Project structure
 
 | Path | Purpose and owner |

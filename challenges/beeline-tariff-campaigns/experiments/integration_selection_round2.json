@@ -1,0 +1,13 @@
+{
+  "selected": "eb_rank",
+  "reason": "All five development means improve over baseline; rank with EB but keep direct historical beliefs and neutral unseen transitions. Round-two validation not inspected.",
+  "candidate_equivalence": true,
+  "candidate_count": 189,
+  "source_sha256": {
+    "agent": "64248f88b3f41896cb3511e38a909588e475532ccd3b21181f4a98551fcace87",
+    "candidate_research": "210a680e752090195af43fd8f63aa16d483fd56d690893498931dce08a02ae1c",
+    "campaign_planner": "594c5b25d713e497642bee6569fb1aba03d18fa07137bf48e09037f25da2096b",
+    "transition_prior": "0a67916d8139000d6f7cc17bb7455737b937a31f01432d87a0772c852663bb58"
+  },
+  "models_sha256": "ea097cc55d70a7ec023c64db3651a6e7e35822817a227fabff24230b54d56585"
+}

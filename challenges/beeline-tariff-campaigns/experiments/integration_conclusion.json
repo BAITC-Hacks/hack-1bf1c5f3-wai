@@ -1,0 +1,129 @@
+{
+  "round1": [
+    {
+      "family": "official_mock",
+      "baseline_mean": 4679419.879425272,
+      "candidate_mean": 4846553.589463646,
+      "main_mean": 4872685.270204497,
+      "baseline_median": 4792640.883197349,
+      "candidate_median": 4907206.932357941,
+      "main_median": 4778281.109267866,
+      "mean_change_pct": 3.5716758560871087,
+      "wins": 19,
+      "runs": 30
+    },
+    {
+      "family": "strong_history",
+      "baseline_mean": 5259282.823222233,
+      "candidate_mean": 5078876.750997537,
+      "main_mean": 5571158.053825681,
+      "baseline_median": 5369461.046089261,
+      "candidate_median": 5304752.33327793,
+      "main_median": 5528663.1118966425,
+      "mean_change_pct": -3.43024093376606,
+      "wins": 3,
+      "runs": 6
+    },
+    {
+      "family": "moderate_shift",
+      "baseline_mean": 4232350.121638683,
+      "candidate_mean": 3936712.883321279,
+      "main_mean": 2635234.00400647,
+      "baseline_median": 4314279.525506988,
+      "candidate_median": 4105665.268791314,
+      "main_median": 2443661.9887159215,
+      "mean_change_pct": -6.985179151552289,
+      "wins": 4,
+      "runs": 6
+    },
+    {
+      "family": "independent",
+      "baseline_mean": 3520771.0740600885,
+      "candidate_mean": 3200909.875080375,
+      "main_mean": 1127987.9078328842,
+      "baseline_median": 3126247.671735429,
+      "candidate_median": 1907284.6189971345,
+      "main_median": 1265542.3977537253,
+      "mean_change_pct": -9.08497576955083,
+      "wins": 4,
+      "runs": 6
+    },
+    {
+      "family": "reversed",
+      "baseline_mean": 4545562.18587232,
+      "candidate_mean": 1597976.1091907192,
+      "main_mean": -234697.5710284517,
+      "baseline_median": 4633806.759839954,
+      "candidate_median": 1705144.6840934115,
+      "main_median": -312134.07417261787,
+      "mean_change_pct": -64.84535809107938,
+      "wins": 0,
+      "runs": 6
+    }
+  ],
+  "_round2": [
+    {
+      "family": "official_mock",
+      "baseline_mean": 4612223.392601741,
+      "candidate_mean": 4707633.440824327,
+      "main_mean": 4953938.029666132,
+      "baseline_median": 4721151.044208305,
+      "candidate_median": 4821538.041286101,
+      "main_median": 4939695.813499764,
+      "mean_change_pct": 2.068634584691398,
+      "wins": 21,
+      "runs": 30
+    },
+    {
+      "family": "strong_history",
+      "baseline_mean": 5554386.48626848,
+      "candidate_mean": 5840655.1571655935,
+      "main_mean": 5854773.512308646,
+      "baseline_median": 5625691.323727641,
+      "candidate_median": 5946353.085745063,
+      "main_median": 5809703.749343196,
+      "mean_change_pct": 5.1539206284046735,
+      "wins": 5,
+      "runs": 6
+    },
+    {
+      "family": "moderate_shift",
+      "baseline_mean": 5467967.504493517,
+      "candidate_mean": 4863499.094576226,
+      "main_mean": 4538969.468251842,
+      "baseline_median": 5488446.830953267,
+      "candidate_median": 4690855.387588353,
+      "main_median": 4947062.075875409,
+      "mean_change_pct": -11.054718401682994,
+      "wins": 1,
+      "runs": 6
+    },
+    {
+      "family": "independent",
+      "baseline_mean": 4277578.965306573,
+      "candidate_mean": 3315296.0664627175,
+      "main_mean": 1661132.4978899397,
+      "baseline_median": 4049676.49816949,
+      "candidate_median": 3652740.7107215985,
+      "main_median": 1765930.2127350993,
+      "mean_change_pct": -22.495970422719914,
+      "wins": 1,
+      "runs": 6
+    },
+    {
+      "family": "reversed",
+      "baseline_mean": 2701175.64431241,
+      "candidate_mean": 1159170.7271975116,
+      "main_mean": -917223.8676976088,
+      "baseline_median": 4599376.982840219,
+      "candidate_median": 1236255.170657665,
+      "main_median": -851114.4139625679,
+      "mean_change_pct": -57.08643643228981,
+      "wins": 1,
+      "runs": 6
+    }
+  ],
+  "evaluations": 468,
+  "all_legal": true,
+  "decision": "Retain original production agent; both selected integrations failed reserved artificial-family checks."
+}
