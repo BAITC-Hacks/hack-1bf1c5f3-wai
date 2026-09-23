@@ -49,7 +49,16 @@ class LlmSelectorTests(unittest.TestCase):
             ["candidate_0", "candidate_1"],
         )
         self.assertNotIn("ID_NUMBER", payload["input"])
-        self.assertEqual(transport.call_args.kwargs["timeout"], 15.0)
+        self.assertEqual(transport.call_args.kwargs["timeout"], 45.0)
+
+    def test_timeout_is_configurable_and_bounded(self):
+        transport = Mock(return_value=self._response("candidate_0"))
+        with patch.dict(os.environ, {
+            "OPENAI_API_KEY": "test-only-placeholder",
+            "OPENAI_SELECTOR_TIMEOUT": "120",
+        }):
+            select_pilot(_shortlist(), [], transport=transport)
+        self.assertEqual(transport.call_args.kwargs["timeout"], 90.0)
 
     def test_invalid_choice_or_api_failure_falls_back(self):
         transport = Mock(return_value=self._response("candidate_99"))

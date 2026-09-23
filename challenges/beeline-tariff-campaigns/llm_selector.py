@@ -12,7 +12,17 @@ from urllib.request import Request, urlopen
 from campaign_planner import Belief
 
 DEFAULT_MODEL = "gpt-4o-mini"
+DEFAULT_TIMEOUT_SECONDS = 45.0
 RESPONSES_URL = "https://api.openai.com/v1/responses"
+
+
+def _timeout_seconds() -> float:
+    """Return a bounded timeout so four checkpoints stay within ten minutes."""
+    try:
+        configured = float(os.getenv("OPENAI_SELECTOR_TIMEOUT", DEFAULT_TIMEOUT_SECONDS))
+    except (TypeError, ValueError):
+        return DEFAULT_TIMEOUT_SECONDS
+    return min(90.0, max(5.0, configured))
 
 
 def select_pilot(
@@ -78,7 +88,7 @@ def select_pilot(
         method="POST",
     )
     try:
-        with transport(request, timeout=15.0) as connection:
+        with transport(request, timeout=_timeout_seconds()) as connection:
             response = json.load(connection)
         if response.get("status") != "completed":
             return None
