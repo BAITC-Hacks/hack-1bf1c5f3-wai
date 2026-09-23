@@ -1,0 +1,276 @@
+{
+  "feedback_sensitivity": {
+    "different_plans": true,
+    "positive": {
+      "pilots": 20,
+      "final_campaigns": 5,
+      "limits_ok": true,
+      "plan": [
+        {
+          "campaign_name": "c1_HIGH_tariff_10_sms",
+          "filter_arpu_segment": "HIGH",
+          "filter_current_tariff": "tariff_8",
+          "target_tariff": "tariff_10",
+          "channel": "sms"
+        },
+        {
+          "campaign_name": "c2_HIGH_tariff_12_sms",
+          "filter_arpu_segment": "HIGH",
+          "filter_current_tariff": "tariff_10;tariff_11",
+          "target_tariff": "tariff_12",
+          "channel": "sms"
+        },
+        {
+          "campaign_name": "c3_HIGH_tariff_11_digital_ads",
+          "filter_arpu_segment": "HIGH",
+          "filter_current_tariff": "tariff_12;tariff_14",
+          "target_tariff": "tariff_11",
+          "channel": "digital_ads"
+        },
+        {
+          "campaign_name": "c4_HIGH_tariff_12_digital_ads",
+          "filter_arpu_segment": "HIGH",
+          "filter_current_tariff": "tariff_4",
+          "target_tariff": "tariff_12",
+          "channel": "digital_ads",
+          "filter_data_segment": "LITE",
+          "filter_call_segment": "HIGH"
+        },
+        {
+          "campaign_name": "c5_LOW_tariff_9_call",
+          "filter_arpu_segment": "LOW",
+          "filter_current_tariff": "tariff_1",
+          "target_tariff": "tariff_9",
+          "channel": "call",
+          "filter_call_segment": "MEDIUM"
+        }
+      ]
+    },
+    "negative": {
+      "pilots": 20,
+      "final_campaigns": 10,
+      "limits_ok": true,
+      "plan": [
+        {
+          "campaign_name": "c1_MID_tariff_8_digital_ads",
+          "filter_arpu_segment": "MID",
+          "filter_current_tariff": "tariff_1;tariff_11;tariff_12;tariff_13;tariff_15;tariff_16;tariff_17;tariff_18;tariff_19;tariff_2;tariff_20;tariff_3;tariff_9",
+          "target_tariff": "tariff_8",
+          "channel": "digital_ads"
+        },
+        {
+          "campaign_name": "c2_LOW_tariff_9_digital_ads",
+          "filter_arpu_segment": "LOW",
+          "filter_current_tariff": "tariff_1;tariff_13;tariff_14;tariff_15;tariff_16;tariff_17;tariff_18;tariff_19;tariff_2;tariff_3;tariff_4;tariff_7;tariff_8",
+          "target_tariff": "tariff_9",
+          "channel": "digital_ads"
+        },
+        {
+          "campaign_name": "c3_LOW_tariff_8_sms",
+          "filter_arpu_segment": "LOW",
+          "filter_current_tariff": "tariff_11;tariff_13;tariff_17;tariff_18;tariff_20;tariff_9",
+          "target_tariff": "tariff_8",
+          "channel": "sms"
+        },
+        {
+          "campaign_name": "c4_LOW_tariff_8_push",
+          "filter_arpu_segment": "LOW",
+          "filter_current_tariff": "tariff_12",
+          "target_tariff": "tariff_8",
+          "channel": "push"
+        },
+        {
+          "campaign_name": "c5_LOW_tariff_9_push",
+          "filter_arpu_segment": "LOW",
+          "filter_current_tariff": "tariff_10",
+          "target_tariff": "tariff_9",
+          "channel": "push"
+        },
+        {
+          "campaign_name": "c6_LOW_tariff_13_sms",
+          "filter_arpu_segment": "LOW",
+          "filter_current_tariff": "tariff_2;tariff_20;tariff_5;tariff_6",
+          "target_tariff": "tariff_13",
+          "channel": "sms"
+        },
+        {
+          "campaign_name": "c7_MID_tariff_11_push",
+          "filter_arpu_segment": "MID",
+          "filter_current_tariff": "tariff_10",
+          "target_tariff": "tariff_11",
+          "channel": "push"
+        },
+        {
+          "campaign_name": "c8_LOW_tariff_8_digital_ads",
+          "filter_arpu_segment": "LOW",
+          "filter_current_tariff": "tariff_17;tariff_18",
+          "target_tariff": "tariff_8",
+          "channel": "digital_ads"
+        },
+        {
+          "campaign_name": "c9_LOW_tariff_8_digital_ads",
+          "filter_arpu_segment": "LOW",
+          "filter_current_tariff": "tariff_13",
+          "target_tariff": "tariff_8",
+          "channel": "digital_ads",
+          "filter_data_segment": "LITE",
+          "filter_call_segment": "MEDIUM"
+        },
+        {
+          "campaign_name": "c10_LOW_tariff_8_digital_ads",
+          "filter_arpu_segment": "LOW",
+          "filter_current_tariff": "tariff_13",
+          "target_tariff": "tariff_8",
+          "channel": "digital_ads",
+          "filter_call_segment": "HIGH"
+        }
+      ]
+    }
+  },
+  "missing_feedback_after_four_completed_pilots": {
+    "pilots": 4,
+    "final_campaigns": 5,
+    "limits_ok": true,
+    "plan": [
+      {
+        "campaign_name": "c1_HIGH_tariff_12_sms",
+        "filter_arpu_segment": "HIGH",
+        "filter_current_tariff": "tariff_10;tariff_11",
+        "target_tariff": "tariff_12",
+        "channel": "sms"
+      },
+      {
+        "campaign_name": "c2_HIGH_tariff_10_sms",
+        "filter_arpu_segment": "HIGH",
+        "filter_current_tariff": "tariff_8",
+        "target_tariff": "tariff_10",
+        "channel": "sms"
+      },
+      {
+        "campaign_name": "c3_MID_tariff_8_sms",
+        "filter_arpu_segment": "MID",
+        "filter_current_tariff": "tariff_1;tariff_10;tariff_11;tariff_12;tariff_13;tariff_15;tariff_16;tariff_17;tariff_18;tariff_19;tariff_2;tariff_20;tariff_3;tariff_4;tariff_9",
+        "target_tariff": "tariff_8",
+        "channel": "sms"
+      },
+      {
+        "campaign_name": "c4_LOW_tariff_9_digital_ads",
+        "filter_arpu_segment": "LOW",
+        "filter_current_tariff": "tariff_1;tariff_14;tariff_15;tariff_16;tariff_18;tariff_19;tariff_7;tariff_8",
+        "target_tariff": "tariff_9",
+        "channel": "digital_ads"
+      },
+      {
+        "campaign_name": "c5_LOW_tariff_8_call",
+        "filter_arpu_segment": "LOW",
+        "filter_current_tariff": "tariff_13",
+        "target_tariff": "tariff_8",
+        "channel": "call",
+        "filter_data_segment": "LITE",
+        "filter_call_segment": "MEDIUM"
+      }
+    ]
+  },
+  "selection_failure_after_three_completed_pilots": {
+    "pilots": 3,
+    "final_campaigns": 8,
+    "limits_ok": true,
+    "plan": [
+      {
+        "campaign_name": "c1_HIGH_tariff_12_sms",
+        "filter_arpu_segment": "HIGH",
+        "filter_current_tariff": "tariff_10;tariff_11",
+        "target_tariff": "tariff_12",
+        "channel": "sms"
+      },
+      {
+        "campaign_name": "c2_HIGH_tariff_10_sms",
+        "filter_arpu_segment": "HIGH",
+        "filter_current_tariff": "tariff_8",
+        "target_tariff": "tariff_10",
+        "channel": "sms"
+      },
+      {
+        "campaign_name": "c3_MID_tariff_8_digital_ads",
+        "filter_arpu_segment": "MID",
+        "filter_current_tariff": "tariff_1;tariff_12;tariff_13;tariff_17;tariff_3;tariff_4",
+        "target_tariff": "tariff_8",
+        "channel": "digital_ads"
+      },
+      {
+        "campaign_name": "c4_LOW_tariff_9_push",
+        "filter_arpu_segment": "LOW",
+        "filter_current_tariff": "tariff_1;tariff_10;tariff_13;tariff_14;tariff_15;tariff_16;tariff_17;tariff_18;tariff_19;tariff_2;tariff_3;tariff_4;tariff_7;tariff_8",
+        "target_tariff": "tariff_9",
+        "channel": "push"
+      },
+      {
+        "campaign_name": "c5_LOW_tariff_8_push",
+        "filter_arpu_segment": "LOW",
+        "filter_current_tariff": "tariff_13;tariff_15;tariff_17;tariff_18;tariff_20;tariff_9",
+        "target_tariff": "tariff_8",
+        "channel": "push"
+      },
+      {
+        "campaign_name": "c6_MID_tariff_8_push",
+        "filter_arpu_segment": "MID",
+        "filter_current_tariff": "tariff_15;tariff_16;tariff_18;tariff_19;tariff_2;tariff_20",
+        "target_tariff": "tariff_8",
+        "channel": "push"
+      },
+      {
+        "campaign_name": "c7_LOW_tariff_13_push",
+        "filter_arpu_segment": "LOW",
+        "filter_current_tariff": "tariff_2;tariff_6",
+        "target_tariff": "tariff_13",
+        "channel": "push"
+      },
+      {
+        "campaign_name": "c8_LOW_tariff_8_digital_ads",
+        "filter_arpu_segment": "LOW",
+        "filter_current_tariff": "tariff_11",
+        "target_tariff": "tariff_8",
+        "channel": "digital_ads",
+        "filter_data_segment": "LITE",
+        "filter_call_segment": "MEDIUM"
+      }
+    ]
+  },
+  "planner_failure": {
+    "pilots": 20,
+    "final_campaigns": 1,
+    "limits_ok": true,
+    "plan": [
+      {
+        "campaign_name": "fallback_tariff_1_tariff_9",
+        "filter_current_tariff": "tariff_1",
+        "filter_arpu_segment": "LOW",
+        "target_tariff": "tariff_9",
+        "channel": "push"
+      }
+    ]
+  },
+  "all_negative_minimal_loss_fallback": {
+    "plan": [
+      {
+        "campaign_name": "fallback_small_audience",
+        "filter_current_tariff": "tariff_1",
+        "filter_arpu_segment": "HIGH",
+        "filter_data_segment": "LITE",
+        "filter_call_segment": "LOW",
+        "target_tariff": "tariff_3",
+        "channel": "push"
+      }
+    ],
+    "least_loss_audience": true,
+    "best_available_target": true,
+    "free_channel": true
+  },
+  "candidate_coverage": {
+    "cells": 63,
+    "hypotheses": 189,
+    "possible_nonidentity_transitions": 1260,
+    "cells_without_candidates": []
+  },
+  "no_history_nearest_price_mismatches": []
+}

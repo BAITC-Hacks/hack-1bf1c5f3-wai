@@ -2,7 +2,7 @@
 
 This repository contains a Python agent for the HackAlem tariff campaign case. It examines a synthetic subscriber audience, conducts small pilot campaigns through the supplied environment, and returns a tariff, audience, and channel plan. The case data and local results are synthetic; they do not describe real Beeline customers or performance.
 
-The current agent is a runnable baseline for the three-person team. The supplied local evaluator tests the real interface and scoring mechanics against mock effects. Its score does not predict the hidden judging score.
+The agent uses pilot feedback to choose campaigns and allocate resources. The supplied local evaluator tests the interface and scoring mechanics against mock effects. Its score does not predict the hidden judging score. See the [strategy experiment report](docs/agent-improvement-results.md) for comparisons against the previous agent and the validation limits.
 
 ## Project structure
 
@@ -41,11 +41,20 @@ The evaluator should show at least one pilot and no rejected or clipped final ca
 
 ## Current decision flow
 
-1. `candidate_research.py` groups the supplied audience into disjoint current-tariff, ARPU, and data-use cells. It uses historical tariff changes as a weak ordering prior and omits cells with missing required filters.
-2. `agent.py` pilots up to three candidate cells through the public `env.run_pilot` interface, recording the observed ratio, actual contacts, and cost.
-3. `campaign_planner.py` discounts noisy observations by one pilot standard error, selects at most three disjoint final campaigns, and checks audience size, remaining contacts, and remaining money before returning them.
+1. `candidate_research.py` groups the audience by current tariff and ARPU segment. Deduplicated historical changes supply up to three target hypotheses per cell. When history is unavailable, neutral candidates follow the nearest higher tariff prices.
+2. `agent.py` runs up to 20 pilots, normally SMS with up to 200 customers each. It updates each hypothesis's estimated effect and uncertainty using actual pilot feedback. The next pilot is chosen for its expected improvement to the best cautious campaign estimate: both discovering a better target and confirming a promising target can help.
+3. `campaign_planner.py` uses `estimated effect - 0.5 × uncertainty` for every channel, including push, because every channel consumes contacts. It greedily allocates up to ten campaigns, comparing incremental customer gains and channel costs while checking full requested audiences against all remaining limits. Data and call filters can select smaller audiences that fit the resources.
+4. If pilot processing or planning fails, completed estimates still support a final plan. A fallback uses an affordable positive cell when possible; if all estimates are negative, it selects the small legal audience with the least estimated loss, satisfying the requirement to return a campaign.
 
-The baseline uses SMS for sufficiently positive pilots and a low-cost push fallback otherwise. It has no LLM or external account dependency. Historical transition frequency is not an absolute conversion probability; the history covers a different audience. The team should improve exploration, channel choice, uncertainty treatment, and resilience to hidden effects without tuning constants to the mock score.
+The agent has no LLM or external account dependency. Historical transition frequency is not an absolute conversion probability; the history covers a different audience. The candidate pool and historical prior assumptions remain limitations. Experiments with smaller/adaptive pilots, budget allocation searches, and channel reassignment were rejected when they failed to improve validation results.
+
+To reproduce a comparison with the previous Git version, run from the challenge directory:
+
+```bash
+python benchmark_agents.py --baseline-ref 0655b5c --start-seed 30 --runs 30 --output experiments/recheck.json
+```
+
+The benchmark loads only the old participant modules from Git and evaluates both policies with the official evaluator. The agent itself does not access Git or evaluator internals. Frozen variant experiments and deliberately shifted synthetic scenarios live in `challenges/beeline-tariff-campaigns/experiments/`.
 
 `agent.py` currently imports the two team helper modules. Keep them in the submitted repository, or fold their code into `agent.py` before the final handoff if the organizer collects only the named submission artifacts. Regenerate `submission.csv` from that exact final code.
 

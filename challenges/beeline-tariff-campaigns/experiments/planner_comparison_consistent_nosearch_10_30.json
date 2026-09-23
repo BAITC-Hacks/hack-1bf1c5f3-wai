@@ -1,0 +1,382 @@
+[
+  {
+    "seed": 10,
+    "baseline": {
+      "net_arpu_gain": 4755265.498290373,
+      "total_cost": 99864.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13639,
+      "n_pilots": 20,
+      "seconds": 0.9336154999982682
+    },
+    "shadow": {
+      "net_arpu_gain": 5030385.082419981,
+      "total_cost": 98922.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13666,
+      "n_pilots": 20,
+      "seconds": 1.0157819999985804
+    }
+  },
+  {
+    "seed": 11,
+    "baseline": {
+      "net_arpu_gain": 4574041.702244604,
+      "total_cost": 99886.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13178,
+      "n_pilots": 20,
+      "seconds": 0.9820698000003176
+    },
+    "shadow": {
+      "net_arpu_gain": 4767953.984390069,
+      "total_cost": 99934.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 12896,
+      "n_pilots": 20,
+      "seconds": 0.9567071000019496
+    }
+  },
+  {
+    "seed": 12,
+    "baseline": {
+      "net_arpu_gain": 4592099.685154736,
+      "total_cost": 99936.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13460,
+      "n_pilots": 20,
+      "seconds": 0.9253905000005034
+    },
+    "shadow": {
+      "net_arpu_gain": 4795085.760681728,
+      "total_cost": 99934.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13174,
+      "n_pilots": 20,
+      "seconds": 1.0884193000019877
+    }
+  },
+  {
+    "seed": 13,
+    "baseline": {
+      "net_arpu_gain": 3545382.9976433767,
+      "total_cost": 99998.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13209,
+      "n_pilots": 20,
+      "seconds": 0.9447139000003517
+    },
+    "shadow": {
+      "net_arpu_gain": 4731315.13173618,
+      "total_cost": 99998.0,
+      "total_contacts": 14999,
+      "unique_customers_targeted": 13394,
+      "n_pilots": 20,
+      "seconds": 1.052565300000424
+    }
+  },
+  {
+    "seed": 14,
+    "baseline": {
+      "net_arpu_gain": 2897202.0579614853,
+      "total_cost": 93838.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 12594,
+      "n_pilots": 20,
+      "seconds": 0.8405785000031756
+    },
+    "shadow": {
+      "net_arpu_gain": 3555305.2663593376,
+      "total_cost": 99878.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13001,
+      "n_pilots": 20,
+      "seconds": 1.0207563000003574
+    }
+  },
+  {
+    "seed": 15,
+    "baseline": {
+      "net_arpu_gain": 3564434.3629444726,
+      "total_cost": 98918.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13228,
+      "n_pilots": 20,
+      "seconds": 0.9465605000004871
+    },
+    "shadow": {
+      "net_arpu_gain": 3543724.3405989725,
+      "total_cost": 99910.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13228,
+      "n_pilots": 20,
+      "seconds": 0.8550789999972039
+    }
+  },
+  {
+    "seed": 16,
+    "baseline": {
+      "net_arpu_gain": 4548724.144316741,
+      "total_cost": 99734.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13106,
+      "n_pilots": 20,
+      "seconds": 0.9410896000008506
+    },
+    "shadow": {
+      "net_arpu_gain": 4909552.875765909,
+      "total_cost": 99942.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13212,
+      "n_pilots": 20,
+      "seconds": 1.024746099999902
+    }
+  },
+  {
+    "seed": 17,
+    "baseline": {
+      "net_arpu_gain": 4567104.809283117,
+      "total_cost": 99942.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13239,
+      "n_pilots": 20,
+      "seconds": 0.9993527000005997
+    },
+    "shadow": {
+      "net_arpu_gain": 4613543.298149083,
+      "total_cost": 99978.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13237,
+      "n_pilots": 20,
+      "seconds": 1.1337789999997767
+    }
+  },
+  {
+    "seed": 18,
+    "baseline": {
+      "net_arpu_gain": 4578415.21000061,
+      "total_cost": 99916.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13561,
+      "n_pilots": 20,
+      "seconds": 1.0349092000033124
+    },
+    "shadow": {
+      "net_arpu_gain": 3250912.4600985115,
+      "total_cost": 99992.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13375,
+      "n_pilots": 20,
+      "seconds": 0.8922309000008681
+    }
+  },
+  {
+    "seed": 19,
+    "baseline": {
+      "net_arpu_gain": 4306982.072105741,
+      "total_cost": 99912.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13447,
+      "n_pilots": 20,
+      "seconds": 0.9622647000032885
+    },
+    "shadow": {
+      "net_arpu_gain": 3452953.0743591776,
+      "total_cost": 99910.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13380,
+      "n_pilots": 20,
+      "seconds": 0.8661769999998796
+    }
+  },
+  {
+    "seed": 20,
+    "baseline": {
+      "net_arpu_gain": 4567507.188480846,
+      "total_cost": 99886.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13487,
+      "n_pilots": 20,
+      "seconds": 0.9621542999993835
+    },
+    "shadow": {
+      "net_arpu_gain": 4677505.48416009,
+      "total_cost": 99952.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13448,
+      "n_pilots": 20,
+      "seconds": 0.9198560000004363
+    }
+  },
+  {
+    "seed": 21,
+    "baseline": {
+      "net_arpu_gain": 4096373.712550757,
+      "total_cost": 84350.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13393,
+      "n_pilots": 20,
+      "seconds": 1.01634009999907
+    },
+    "shadow": {
+      "net_arpu_gain": 4483146.945206,
+      "total_cost": 98980.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13302,
+      "n_pilots": 20,
+      "seconds": 1.2072991999993974
+    }
+  },
+  {
+    "seed": 22,
+    "baseline": {
+      "net_arpu_gain": 4181558.433436159,
+      "total_cost": 99660.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13449,
+      "n_pilots": 20,
+      "seconds": 1.0104291999996349
+    },
+    "shadow": {
+      "net_arpu_gain": 4890395.286851936,
+      "total_cost": 99916.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13635,
+      "n_pilots": 20,
+      "seconds": 1.0905730000013136
+    }
+  },
+  {
+    "seed": 23,
+    "baseline": {
+      "net_arpu_gain": 4147493.967182329,
+      "total_cost": 99292.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13205,
+      "n_pilots": 20,
+      "seconds": 0.9712648000022455
+    },
+    "shadow": {
+      "net_arpu_gain": 5103447.94758966,
+      "total_cost": 99994.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13180,
+      "n_pilots": 20,
+      "seconds": 1.0981934999981604
+    }
+  },
+  {
+    "seed": 24,
+    "baseline": {
+      "net_arpu_gain": 4513722.50334243,
+      "total_cost": 99118.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13306,
+      "n_pilots": 20,
+      "seconds": 0.8609450999974797
+    },
+    "shadow": {
+      "net_arpu_gain": 5385828.348308154,
+      "total_cost": 99998.0,
+      "total_contacts": 14999,
+      "unique_customers_targeted": 13308,
+      "n_pilots": 20,
+      "seconds": 1.032862499996554
+    }
+  },
+  {
+    "seed": 25,
+    "baseline": {
+      "net_arpu_gain": 3578843.2219644003,
+      "total_cost": 99982.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13176,
+      "n_pilots": 20,
+      "seconds": 0.8679063000017777
+    },
+    "shadow": {
+      "net_arpu_gain": 4510519.193890651,
+      "total_cost": 99986.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13280,
+      "n_pilots": 20,
+      "seconds": 0.9862673999996332
+    }
+  },
+  {
+    "seed": 26,
+    "baseline": {
+      "net_arpu_gain": 4646863.493974147,
+      "total_cost": 99936.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13754,
+      "n_pilots": 20,
+      "seconds": 0.8991205000020273
+    },
+    "shadow": {
+      "net_arpu_gain": 4740210.015267375,
+      "total_cost": 99998.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13415,
+      "n_pilots": 20,
+      "seconds": 1.3076260999987426
+    }
+  },
+  {
+    "seed": 27,
+    "baseline": {
+      "net_arpu_gain": 4313956.580518828,
+      "total_cost": 99718.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 13532,
+      "n_pilots": 20,
+      "seconds": 1.3261605000006966
+    },
+    "shadow": {
+      "net_arpu_gain": 4680608.943680706,
+      "total_cost": 99998.0,
+      "total_contacts": 14999,
+      "unique_customers_targeted": 13220,
+      "n_pilots": 20,
+      "seconds": 1.1598609000029683
+    }
+  },
+  {
+    "seed": 28,
+    "baseline": {
+      "net_arpu_gain": 4368223.939527173,
+      "total_cost": 99248.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 12993,
+      "n_pilots": 20,
+      "seconds": 1.0648766999984218
+    },
+    "shadow": {
+      "net_arpu_gain": 4550822.603013547,
+      "total_cost": 99994.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 12502,
+      "n_pilots": 20,
+      "seconds": 1.1118590000005497
+    }
+  },
+  {
+    "seed": 29,
+    "baseline": {
+      "net_arpu_gain": 3885138.3870889964,
+      "total_cost": 99998.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 12761,
+      "n_pilots": 20,
+      "seconds": 1.1290649000002304
+    },
+    "shadow": {
+      "net_arpu_gain": 3839678.884949114,
+      "total_cost": 99966.0,
+      "total_contacts": 15000,
+      "unique_customers_targeted": 12761,
+      "n_pilots": 20,
+      "seconds": 1.256192299999384
+    }
+  }
+]

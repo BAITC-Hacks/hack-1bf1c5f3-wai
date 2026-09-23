@@ -1,0 +1,172 @@
+[
+  {
+    "seed": 0,
+    "joint": {
+      "net_arpu_gain": 4717744.901250468,
+      "total_contacts": 15000,
+      "total_cost": 99970.0,
+      "n_pilots": 20,
+      "seconds": 1.1684610000011162
+    },
+    "pairs": {
+      "net_arpu_gain": 4717744.901250468,
+      "total_contacts": 15000,
+      "total_cost": 99970.0,
+      "n_pilots": 20,
+      "seconds": 1.1056857999974454
+    }
+  },
+  {
+    "seed": 1,
+    "joint": {
+      "net_arpu_gain": 4817699.255358439,
+      "total_contacts": 15000,
+      "total_cost": 99934.0,
+      "n_pilots": 20,
+      "seconds": 1.1845064000008279
+    },
+    "pairs": {
+      "net_arpu_gain": 4817699.255358439,
+      "total_contacts": 15000,
+      "total_cost": 99934.0,
+      "n_pilots": 20,
+      "seconds": 1.226015099997312
+    }
+  },
+  {
+    "seed": 2,
+    "joint": {
+      "net_arpu_gain": 4471019.606501985,
+      "total_contacts": 15000,
+      "total_cost": 100000.0,
+      "n_pilots": 20,
+      "seconds": 1.1687358999988646
+    },
+    "pairs": {
+      "net_arpu_gain": 4470912.656643143,
+      "total_contacts": 15000,
+      "total_cost": 100000.0,
+      "n_pilots": 20,
+      "seconds": 1.3021516000007978
+    }
+  },
+  {
+    "seed": 3,
+    "joint": {
+      "net_arpu_gain": 4941368.830884311,
+      "total_contacts": 15000,
+      "total_cost": 99994.0,
+      "n_pilots": 20,
+      "seconds": 1.2849499000003561
+    },
+    "pairs": {
+      "net_arpu_gain": 4941368.830884311,
+      "total_contacts": 15000,
+      "total_cost": 99994.0,
+      "n_pilots": 20,
+      "seconds": 1.546302700000524
+    }
+  },
+  {
+    "seed": 4,
+    "joint": {
+      "net_arpu_gain": 4799196.405051487,
+      "total_contacts": 15000,
+      "total_cost": 99934.0,
+      "n_pilots": 20,
+      "seconds": 1.1996461000017007
+    },
+    "pairs": {
+      "net_arpu_gain": 4799196.405051487,
+      "total_contacts": 15000,
+      "total_cost": 99934.0,
+      "n_pilots": 20,
+      "seconds": 1.3484014000023308
+    }
+  },
+  {
+    "seed": 5,
+    "joint": {
+      "net_arpu_gain": 5051875.856193831,
+      "total_contacts": 15000,
+      "total_cost": 99986.0,
+      "n_pilots": 20,
+      "seconds": 1.2742747999982384
+    },
+    "pairs": {
+      "net_arpu_gain": 5051875.856193831,
+      "total_contacts": 15000,
+      "total_cost": 99986.0,
+      "n_pilots": 20,
+      "seconds": 1.2972875999985263
+    }
+  },
+  {
+    "seed": 6,
+    "joint": {
+      "net_arpu_gain": 4435120.576444475,
+      "total_contacts": 15000,
+      "total_cost": 100000.0,
+      "n_pilots": 20,
+      "seconds": 1.3502723999990849
+    },
+    "pairs": {
+      "net_arpu_gain": 4435120.576444475,
+      "total_contacts": 15000,
+      "total_cost": 100000.0,
+      "n_pilots": 20,
+      "seconds": 1.2954823999971268
+    }
+  },
+  {
+    "seed": 7,
+    "joint": {
+      "net_arpu_gain": 5013957.083326007,
+      "total_contacts": 14336,
+      "total_cost": 99998.0,
+      "n_pilots": 20,
+      "seconds": 1.261940099997446
+    },
+    "pairs": {
+      "net_arpu_gain": 5013957.083326007,
+      "total_contacts": 14336,
+      "total_cost": 99998.0,
+      "n_pilots": 20,
+      "seconds": 1.191001099999994
+    }
+  },
+  {
+    "seed": 8,
+    "joint": {
+      "net_arpu_gain": 4992126.101109984,
+      "total_contacts": 15000,
+      "total_cost": 100000.0,
+      "n_pilots": 20,
+      "seconds": 1.1588202999992063
+    },
+    "pairs": {
+      "net_arpu_gain": 4992126.101109984,
+      "total_contacts": 15000,
+      "total_cost": 100000.0,
+      "n_pilots": 20,
+      "seconds": 1.2554423000001407
+    }
+  },
+  {
+    "seed": 9,
+    "joint": {
+      "net_arpu_gain": 4463660.98462832,
+      "total_contacts": 15000,
+      "total_cost": 99864.0,
+      "n_pilots": 20,
+      "seconds": 1.094166299997596
+    },
+    "pairs": {
+      "net_arpu_gain": 4463660.98462832,
+      "total_contacts": 15000,
+      "total_cost": 99864.0,
+      "n_pilots": 20,
+      "seconds": 1.1548237000024528
+    }
+  }
+]

@@ -132,7 +132,6 @@ def build_hypotheses(
             )
             options = [(0.0, target) for _, target in pricier]
 
-        # Stable ties preserve the nearest-price order of neutral candidates.
-        for mean, target in sorted(options, key=lambda item: item[0], reverse=True)[:per_cell]:
+        for mean, target in sorted(options, reverse=True)[:per_cell]:
             hypotheses.append(Hypothesis(cell, target, mean, PRIOR_SD))
     return hypotheses

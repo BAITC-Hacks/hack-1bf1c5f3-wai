@@ -1,8 +1,8 @@
 """Judge entry point for the Beeline tariff campaign agent.
 
 1. Build (cell, target) hypotheses with weak priors from the participant history.
-2. Use up to 20 pilots to discover or confirm valuable campaigns, updating
-   estimates and uncertainty after every observation.
+2. Spend all 20 pilots, each on the hypothesis with the largest knowledge
+   gradient, updating Bayesian beliefs after every observation.
 3. Allocate the remaining contacts and budget to the campaigns with the largest
    expected net gain, choosing the channel per campaign.
 """
@@ -31,12 +31,7 @@ class Agent:
             hypotheses = build_hypotheses(env.customer_profile, env.tariffs)
         beliefs = [Belief(h) for h in hypotheses]
 
-        try:
-            self._explore(env, beliefs)
-        except Exception:
-            # Completed observations still support a plan if later selection or
-            # feedback processing fails. Never discard them by failing act().
-            pass
+        self._explore(env, beliefs)
 
         try:
             campaigns = plan_campaigns(
@@ -46,10 +41,7 @@ class Agent:
         except Exception:  # never waste completed pilots on a planning bug
             campaigns = []
         if not campaigns:
-            campaigns = fallback_campaigns(
-                beliefs, env.channels, int(env.remaining_contacts),
-                profile=env.customer_profile, budget=float(env.remaining_budget),
-            )
+            campaigns = fallback_campaigns(beliefs, env.channels, int(env.remaining_contacts))
         return campaigns
 
     @staticmethod

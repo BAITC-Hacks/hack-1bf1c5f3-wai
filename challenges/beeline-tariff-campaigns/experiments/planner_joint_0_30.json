@@ -1,0 +1,512 @@
+[
+  {
+    "seed": 0,
+    "confirm_only": {
+      "net_arpu_gain": 4605663.333006199,
+      "total_contacts": 15000,
+      "total_cost": 99936.0,
+      "n_pilots": 20,
+      "seconds": 1.0274668000020029
+    },
+    "joint": {
+      "net_arpu_gain": 4717744.901250468,
+      "total_contacts": 15000,
+      "total_cost": 99970.0,
+      "n_pilots": 20,
+      "seconds": 0.8926123000019288
+    }
+  },
+  {
+    "seed": 1,
+    "confirm_only": {
+      "net_arpu_gain": 4623786.973212975,
+      "total_contacts": 15000,
+      "total_cost": 99886.0,
+      "n_pilots": 20,
+      "seconds": 0.9475936999988335
+    },
+    "joint": {
+      "net_arpu_gain": 4817699.255358439,
+      "total_contacts": 15000,
+      "total_cost": 99934.0,
+      "n_pilots": 20,
+      "seconds": 0.9524306999992405
+    }
+  },
+  {
+    "seed": 2,
+    "confirm_only": {
+      "net_arpu_gain": 4560281.399723641,
+      "total_contacts": 15000,
+      "total_cost": 99788.0,
+      "n_pilots": 20,
+      "seconds": 0.9998863000000711
+    },
+    "joint": {
+      "net_arpu_gain": 4471019.606501985,
+      "total_contacts": 15000,
+      "total_cost": 100000.0,
+      "n_pilots": 20,
+      "seconds": 1.0440332999969542
+    }
+  },
+  {
+    "seed": 3,
+    "confirm_only": {
+      "net_arpu_gain": 4706142.807398852,
+      "total_contacts": 15000,
+      "total_cost": 99334.0,
+      "n_pilots": 20,
+      "seconds": 0.9250728999977582
+    },
+    "joint": {
+      "net_arpu_gain": 4941368.830884311,
+      "total_contacts": 15000,
+      "total_cost": 99994.0,
+      "n_pilots": 20,
+      "seconds": 1.0363842000006116
+    }
+  },
+  {
+    "seed": 4,
+    "confirm_only": {
+      "net_arpu_gain": 4596210.329524495,
+      "total_contacts": 15000,
+      "total_cost": 99936.0,
+      "n_pilots": 20,
+      "seconds": 0.9026392999985546
+    },
+    "joint": {
+      "net_arpu_gain": 4799196.405051487,
+      "total_contacts": 15000,
+      "total_cost": 99934.0,
+      "n_pilots": 20,
+      "seconds": 1.0695285000001604
+    }
+  },
+  {
+    "seed": 5,
+    "confirm_only": {
+      "net_arpu_gain": 4128188.229774369,
+      "total_contacts": 15000,
+      "total_cost": 97150.0,
+      "n_pilots": 20,
+      "seconds": 0.9178747000005387
+    },
+    "joint": {
+      "net_arpu_gain": 5051875.856193831,
+      "total_contacts": 15000,
+      "total_cost": 99986.0,
+      "n_pilots": 20,
+      "seconds": 0.9936932999989949
+    }
+  },
+  {
+    "seed": 6,
+    "confirm_only": {
+      "net_arpu_gain": 4704520.871285848,
+      "total_contacts": 15000,
+      "total_cost": 99996.0,
+      "n_pilots": 20,
+      "seconds": 0.9565638000021863
+    },
+    "joint": {
+      "net_arpu_gain": 4435120.576444475,
+      "total_contacts": 15000,
+      "total_cost": 100000.0,
+      "n_pilots": 20,
+      "seconds": 0.9918753999991168
+    }
+  },
+  {
+    "seed": 7,
+    "confirm_only": {
+      "net_arpu_gain": 4561521.306350302,
+      "total_contacts": 15000,
+      "total_cost": 99894.0,
+      "n_pilots": 20,
+      "seconds": 1.010636399998475
+    },
+    "joint": {
+      "net_arpu_gain": 5013957.083326007,
+      "total_contacts": 14336,
+      "total_cost": 99998.0,
+      "n_pilots": 20,
+      "seconds": 0.9851572000006854
+    }
+  },
+  {
+    "seed": 8,
+    "confirm_only": {
+      "net_arpu_gain": 4112122.02657881,
+      "total_contacts": 15000,
+      "total_cost": 97150.0,
+      "n_pilots": 20,
+      "seconds": 0.8622810999986541
+    },
+    "joint": {
+      "net_arpu_gain": 4992126.101109984,
+      "total_contacts": 15000,
+      "total_cost": 100000.0,
+      "n_pilots": 20,
+      "seconds": 1.3494432000006782
+    }
+  },
+  {
+    "seed": 9,
+    "confirm_only": {
+      "net_arpu_gain": 4232937.602371305,
+      "total_contacts": 15000,
+      "total_cost": 98958.0,
+      "n_pilots": 20,
+      "seconds": 0.9990887999992992
+    },
+    "joint": {
+      "net_arpu_gain": 4463660.98462832,
+      "total_contacts": 15000,
+      "total_cost": 99864.0,
+      "n_pilots": 20,
+      "seconds": 1.3144509000012476
+    }
+  },
+  {
+    "seed": 10,
+    "confirm_only": {
+      "net_arpu_gain": 4536726.592533782,
+      "total_contacts": 15000,
+      "total_cost": 99894.0,
+      "n_pilots": 20,
+      "seconds": 1.316557999998622
+    },
+    "joint": {
+      "net_arpu_gain": 5037454.54201305,
+      "total_contacts": 13982,
+      "total_cost": 99998.0,
+      "n_pilots": 20,
+      "seconds": 1.6253727000002982
+    }
+  },
+  {
+    "seed": 11,
+    "confirm_only": {
+      "net_arpu_gain": 5104432.973448195,
+      "total_contacts": 15000,
+      "total_cost": 98852.0,
+      "n_pilots": 20,
+      "seconds": 1.30949210000108
+    },
+    "joint": {
+      "net_arpu_gain": 5204516.688263115,
+      "total_contacts": 14998,
+      "total_cost": 99998.0,
+      "n_pilots": 20,
+      "seconds": 1.329366599999048
+    }
+  },
+  {
+    "seed": 12,
+    "confirm_only": {
+      "net_arpu_gain": 4601259.372324141,
+      "total_contacts": 15000,
+      "total_cost": 99936.0,
+      "n_pilots": 20,
+      "seconds": 1.2018395999984932
+    },
+    "joint": {
+      "net_arpu_gain": 4697689.5135582965,
+      "total_contacts": 15000,
+      "total_cost": 99786.0,
+      "n_pilots": 20,
+      "seconds": 1.1084050999997999
+    }
+  },
+  {
+    "seed": 13,
+    "confirm_only": {
+      "net_arpu_gain": 4571018.3922878355,
+      "total_contacts": 15000,
+      "total_cost": 99804.0,
+      "n_pilots": 20,
+      "seconds": 1.3322649000001547
+    },
+    "joint": {
+      "net_arpu_gain": 4528928.941889419,
+      "total_contacts": 15000,
+      "total_cost": 99908.0,
+      "n_pilots": 20,
+      "seconds": 1.098111200000858
+    }
+  },
+  {
+    "seed": 14,
+    "confirm_only": {
+      "net_arpu_gain": 4318269.378561262,
+      "total_contacts": 15000,
+      "total_cost": 99960.0,
+      "n_pilots": 20,
+      "seconds": 1.1470833999992465
+    },
+    "joint": {
+      "net_arpu_gain": 4835046.513325034,
+      "total_contacts": 15000,
+      "total_cost": 98582.0,
+      "n_pilots": 20,
+      "seconds": 1.033519000000524
+    }
+  },
+  {
+    "seed": 15,
+    "confirm_only": {
+      "net_arpu_gain": 4590871.915441637,
+      "total_contacts": 15000,
+      "total_cost": 99818.0,
+      "n_pilots": 20,
+      "seconds": 1.073651599999721
+    },
+    "joint": {
+      "net_arpu_gain": 4673001.503384096,
+      "total_contacts": 15000,
+      "total_cost": 99786.0,
+      "n_pilots": 20,
+      "seconds": 1.0852426999990712
+    }
+  },
+  {
+    "seed": 16,
+    "confirm_only": {
+      "net_arpu_gain": 4653509.883892274,
+      "total_contacts": 15000,
+      "total_cost": 99248.0,
+      "n_pilots": 20,
+      "seconds": 1.0665111999987857
+    },
+    "joint": {
+      "net_arpu_gain": 4823446.0872134715,
+      "total_contacts": 15000,
+      "total_cost": 99934.0,
+      "n_pilots": 20,
+      "seconds": 1.064910699999018
+    }
+  },
+  {
+    "seed": 17,
+    "confirm_only": {
+      "net_arpu_gain": 4982248.197589955,
+      "total_contacts": 15000,
+      "total_cost": 99860.0,
+      "n_pilots": 20,
+      "seconds": 1.341043600001285
+    },
+    "joint": {
+      "net_arpu_gain": 5054010.885179811,
+      "total_contacts": 15000,
+      "total_cost": 99936.0,
+      "n_pilots": 20,
+      "seconds": 1.1516450999988592
+    }
+  },
+  {
+    "seed": 18,
+    "confirm_only": {
+      "net_arpu_gain": 4561425.6719347555,
+      "total_contacts": 15000,
+      "total_cost": 99788.0,
+      "n_pilots": 20,
+      "seconds": 1.1460810000025958
+    },
+    "joint": {
+      "net_arpu_gain": 4421912.766285054,
+      "total_contacts": 15000,
+      "total_cost": 99950.0,
+      "n_pilots": 20,
+      "seconds": 1.0595274999977846
+    }
+  },
+  {
+    "seed": 19,
+    "confirm_only": {
+      "net_arpu_gain": 5014993.464566879,
+      "total_contacts": 14996,
+      "total_cost": 99864.0,
+      "n_pilots": 20,
+      "seconds": 1.2586632999991707
+    },
+    "joint": {
+      "net_arpu_gain": 4784196.946661836,
+      "total_contacts": 13205,
+      "total_cost": 99998.0,
+      "n_pilots": 20,
+      "seconds": 1.0143566000006103
+    }
+  },
+  {
+    "seed": 20,
+    "confirm_only": {
+      "net_arpu_gain": 4656765.073025805,
+      "total_contacts": 15000,
+      "total_cost": 99908.0,
+      "n_pilots": 20,
+      "seconds": 1.27732819999801
+    },
+    "joint": {
+      "net_arpu_gain": 4849982.430773118,
+      "total_contacts": 15000,
+      "total_cost": 99934.0,
+      "n_pilots": 20,
+      "seconds": 1.088350400001218
+    }
+  },
+  {
+    "seed": 21,
+    "confirm_only": {
+      "net_arpu_gain": 4123965.3574050125,
+      "total_contacts": 15000,
+      "total_cost": 97836.0,
+      "n_pilots": 20,
+      "seconds": 1.1194116999977268
+    },
+    "joint": {
+      "net_arpu_gain": 4047357.1357837133,
+      "total_contacts": 15000,
+      "total_cost": 99966.0,
+      "n_pilots": 20,
+      "seconds": 1.0602521000000706
+    }
+  },
+  {
+    "seed": 22,
+    "confirm_only": {
+      "net_arpu_gain": 4385469.173109999,
+      "total_contacts": 15000,
+      "total_cost": 98034.0,
+      "n_pilots": 20,
+      "seconds": 1.038580100001127
+    },
+    "joint": {
+      "net_arpu_gain": 5169573.132774881,
+      "total_contacts": 15000,
+      "total_cost": 99736.0,
+      "n_pilots": 20,
+      "seconds": 1.302626999997301
+    }
+  },
+  {
+    "seed": 23,
+    "confirm_only": {
+      "net_arpu_gain": 4553547.349918051,
+      "total_contacts": 15000,
+      "total_cost": 99888.0,
+      "n_pilots": 20,
+      "seconds": 1.5795173999977123
+    },
+    "joint": {
+      "net_arpu_gain": 4931347.340772293,
+      "total_contacts": 15000,
+      "total_cost": 99942.0,
+      "n_pilots": 20,
+      "seconds": 1.3725369999992836
+    }
+  },
+  {
+    "seed": 24,
+    "confirm_only": {
+      "net_arpu_gain": 4747232.55411133,
+      "total_contacts": 15000,
+      "total_cost": 99292.0,
+      "n_pilots": 20,
+      "seconds": 1.187770200001978
+    },
+    "joint": {
+      "net_arpu_gain": 5357115.232354213,
+      "total_contacts": 14069,
+      "total_cost": 99998.0,
+      "n_pilots": 20,
+      "seconds": 1.354115300000558
+    }
+  },
+  {
+    "seed": 25,
+    "confirm_only": {
+      "net_arpu_gain": 4777228.512286188,
+      "total_contacts": 15000,
+      "total_cost": 99468.0,
+      "n_pilots": 20,
+      "seconds": 1.187432799997623
+    },
+    "joint": {
+      "net_arpu_gain": 5020689.918055781,
+      "total_contacts": 15000,
+      "total_cost": 98922.0,
+      "n_pilots": 20,
+      "seconds": 1.0430142999975942
+    }
+  },
+  {
+    "seed": 26,
+    "confirm_only": {
+      "net_arpu_gain": 4543938.306165077,
+      "total_contacts": 15000,
+      "total_cost": 99894.0,
+      "n_pilots": 20,
+      "seconds": 1.0185634000008577
+    },
+    "joint": {
+      "net_arpu_gain": 4723298.087102108,
+      "total_contacts": 15000,
+      "total_cost": 99960.0,
+      "n_pilots": 20,
+      "seconds": 1.0279791000029945
+    }
+  },
+  {
+    "seed": 27,
+    "confirm_only": {
+      "net_arpu_gain": 4592307.535974986,
+      "total_contacts": 15000,
+      "total_cost": 99094.0,
+      "n_pilots": 20,
+      "seconds": 1.004092800001672
+    },
+    "joint": {
+      "net_arpu_gain": 4796025.021093629,
+      "total_contacts": 15000,
+      "total_cost": 99934.0,
+      "n_pilots": 20,
+      "seconds": 1.0623751999992237
+    }
+  },
+  {
+    "seed": 28,
+    "confirm_only": {
+      "net_arpu_gain": 4763341.250241037,
+      "total_contacts": 15000,
+      "total_cost": 98798.0,
+      "n_pilots": 20,
+      "seconds": 1.069692999997642
+    },
+    "joint": {
+      "net_arpu_gain": 4861709.118544276,
+      "total_contacts": 15000,
+      "total_cost": 98582.0,
+      "n_pilots": 20,
+      "seconds": 1.0653378999995766
+    }
+  },
+  {
+    "seed": 29,
+    "confirm_only": {
+      "net_arpu_gain": 4226428.484537888,
+      "total_contacts": 15000,
+      "total_cost": 94638.0,
+      "n_pilots": 20,
+      "seconds": 0.996943200003443
+    },
+    "joint": {
+      "net_arpu_gain": 4596890.9976850115,
+      "total_contacts": 15000,
+      "total_cost": 99838.0,
+      "n_pilots": 20,
+      "seconds": 1.2266593999993347
+    }
+  }
+]

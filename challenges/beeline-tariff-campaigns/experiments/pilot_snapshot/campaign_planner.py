@@ -21,8 +21,8 @@ MAX_PILOT_CUSTOMERS = 200
 MIN_PILOT_CUSTOMERS = 10
 MAX_CAMPAIGNS = 10
 MAX_CUSTOMERS_PER_CAMPAIGN = 5000
-# Every channel consumes scarce contacts. Discount uncertainty for free push
-# too, so untested audiences cannot crowd out campaigns supported by pilots.
+# Paid contacts are committed on (mean - CAUTION * sd): a lucky pilot should
+# not trigger an expensive call campaign. Free push uses the plain mean.
 CAUTION = 0.5
 DATA_SEGMENTS = ("NON_USER", "LITE", "HEAVY")
 CALL_SEGMENTS = ("LOW", "MEDIUM", "HIGH")
@@ -69,11 +69,10 @@ def _normal_cdf(z: float) -> float:
 
 
 def next_pilot(beliefs: Sequence[Belief], multiplier: float) -> Optional[Belief]:
-    """Value discovering a better target and confirming a promising target.
+    """Pick the hypothesis whose pilot has the largest knowledge gradient.
 
-    Compare the expected best cautious estimate after a pilot with today's
-    best cautious estimate. This matches the planner's uncertainty discount;
-    even an obvious winner can merit a pilot if precision unlocks useful reach.
+    The decision per cell is "best target, or nothing". A pilot is worth what
+    it is expected to improve that decision, scaled by the cell's ARPU mass.
     """
     by_cell: Dict[Tuple[str, str], List[Belief]] = defaultdict(list)
     for belief in beliefs:
@@ -88,18 +87,13 @@ def next_pilot(beliefs: Sequence[Belief], multiplier: float) -> Optional[Belief]
         for belief in cell_beliefs:
             if not belief.pilotable:
                 continue
-            alternative = max([0.0] + [
-                o.mean - CAUTION * o.sd for o in cell_beliefs if o is not belief
-            ])
+            alternative = max([0.0] + [o.mean for o in cell_beliefs if o is not belief])
             posterior_var = 1.0 / (belief.precision + belief.observation_precision(multiplier, n))
             sigma = sqrt(max(belief.sd ** 2 - posterior_var, 0.0))
             if sigma <= 0:
                 continue
-            updated_mean = belief.mean - CAUTION * sqrt(posterior_var)
-            z = (updated_mean - alternative) / sigma
-            expected_best = alternative + sigma * (z * _normal_cdf(z) + _normal_pdf(z))
-            current_best = max(alternative, belief.mean - CAUTION * belief.sd)
-            score = (expected_best - current_best) * cell.arpu_sum
+            z = -abs(belief.mean - alternative) / sigma
+            score = sigma * (z * _normal_cdf(z) + _normal_pdf(z)) * cell.arpu_sum
             if score > best_score:
                 best, best_score = belief, score
     return best
@@ -168,7 +162,7 @@ def plan_campaigns(
     ]
 
     def lift_ratio(belief: Belief, cost: float, multiplier: float) -> float:
-        estimate = belief.mean - CAUTION * belief.sd
+        estimate = belief.mean - (CAUTION * belief.sd if cost > 0 else 0.0)
         return estimate * multiplier
 
     def gain(rows: np.ndarray, ratio: float) -> float:
@@ -259,51 +253,18 @@ def plan_campaigns(
     return campaigns
 
 
-def fallback_campaigns(
-    beliefs: Sequence[Belief], channels: dict, contacts: int,
-    profile: Optional[pd.DataFrame] = None, budget: float = 0.0,
-) -> List[dict]:
-    """Keep a valid plan even when all estimates are negative or planning fails.
-
-    The guide requires at least one final campaign. If no positive whole cell
-    fits, select the legal small audience with the least estimated net loss.
-    """
-    if not channels or contacts <= 0:
-        return []
+def fallback_campaigns(beliefs: Sequence[Belief], channels: dict, contacts: int) -> List[dict]:
+    """Free push on the most promising cell that still fits the contact limit."""
     channel = "push" if "push" in channels else min(channels, key=lambda c: channels[c]["cost_per_contact"])
-    cost = float(channels[channel]["cost_per_contact"])
+    if channels[channel]["cost_per_contact"] > 0:
+        return []
     for belief in sorted(beliefs, key=lambda b: b.mean, reverse=True):
         cell = belief.hypothesis.cell
-        if (belief.mean > 0 and 0 < cell.size <= min(contacts, MAX_CUSTOMERS_PER_CAMPAIGN)
-                and cost * cell.size <= budget):
+        if belief.mean > 0 and 0 < cell.size <= min(contacts, MAX_CUSTOMERS_PER_CAMPAIGN):
             return [{
                 "campaign_name": f"fallback_{cell.current_tariff}_{belief.hypothesis.target_tariff}",
                 **cell.filters(),
                 "target_tariff": belief.hypothesis.target_tariff,
                 "channel": channel,
             }]
-    if profile is None:
-        return []
-    best_by_cell = {}
-    for belief in beliefs:
-        key = belief.hypothesis.cell.key
-        if key not in best_by_cell or belief.mean > best_by_cell[key].mean:
-            best_by_cell[key] = belief
-    best, best_net = None, -float("inf")
-    columns = ["current_tariff", "arpu_segment", "data_segment", "call_segment"]
-    multiplier = float(channels[channel]["conversion_multiplier"])
-    for (current, arpu, data, calls), audience in profile.groupby(columns, observed=True):
-        belief = best_by_cell.get((str(current), str(arpu)))
-        n = len(audience)
-        if belief is None or n > min(contacts, MAX_CUSTOMERS_PER_CAMPAIGN) or cost * n > budget:
-            continue
-        net = belief.mean * multiplier * float(audience["predicted_arpu"].fillna(0).sum()) - cost * n
-        if net > best_net:
-            best_net = net
-            best = {
-                "campaign_name": "fallback_small_audience",
-                "filter_current_tariff": str(current), "filter_arpu_segment": str(arpu),
-                "filter_data_segment": str(data), "filter_call_segment": str(calls),
-                "target_tariff": belief.hypothesis.target_tariff, "channel": channel,
-            }
-    return [best] if best else []
+    return []

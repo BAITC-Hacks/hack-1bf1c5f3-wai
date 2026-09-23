@@ -1,0 +1,500 @@
+{
+  "baseline_commit": "0655b5cebbadd3fb912b81f2c3c37aef45975bfc",
+  "current_sources_sha256": {
+    "candidate_research": "5f3df167d6013090ebf0411764a1efb15ad629666ed072ed239eec26bd0b68af",
+    "campaign_planner": "240d7c403e3e6a933651d874fd9a837a226b65c665caa3fb95dad543df19520d",
+    "agent": "64248f88b3f41896cb3511e38a909588e475532ccd3b21181f4a98551fcace87"
+  },
+  "python": "3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]",
+  "scope": "Official mock effects, paired pilot noise seeds; not hidden judging performance.",
+  "summary": {
+    "baseline": {
+      "positive_runs": 20,
+      "net": {
+        "mean": 4211466.698400566,
+        "median": 4341090.260023,
+        "min": 2897202.0579614853,
+        "max": 4755265.498290373
+      },
+      "cost": {
+        "mean": 98656.6,
+        "median": 99875.0,
+        "min": 84350.0,
+        "max": 99998.0
+      },
+      "contacts": {
+        "mean": 15000,
+        "median": 15000.0,
+        "min": 15000,
+        "max": 15000
+      },
+      "pilots": {
+        "mean": 20,
+        "median": 20.0,
+        "min": 20,
+        "max": 20
+      },
+      "final_campaigns": {
+        "mean": 6.65,
+        "median": 7.0,
+        "min": 4,
+        "max": 10
+      },
+      "seconds": {
+        "mean": 1.093803570000091,
+        "median": 1.0643850500018743,
+        "min": 0.9321791000002122,
+        "max": 1.4130164999987755
+      }
+    },
+    "current": {
+      "positive_runs": 20,
+      "net": {
+        "mean": 4615248.971967804,
+        "median": 4591589.725708311,
+        "min": 4123965.3574050125,
+        "max": 5104432.973448195
+      },
+      "cost": {
+        "mean": 99193.7,
+        "median": 99796.0,
+        "min": 94638.0,
+        "max": 99960.0
+      },
+      "contacts": {
+        "mean": 14999.8,
+        "median": 15000.0,
+        "min": 14996,
+        "max": 15000
+      },
+      "pilots": {
+        "mean": 20,
+        "median": 20.0,
+        "min": 20,
+        "max": 20
+      },
+      "final_campaigns": {
+        "mean": 7.15,
+        "median": 7.0,
+        "min": 5,
+        "max": 10
+      },
+      "seconds": {
+        "mean": 1.1711077900008604,
+        "median": 1.145213550002154,
+        "min": 0.9730761000027996,
+        "max": 1.550383600002533
+      }
+    },
+    "paired": {
+      "wins": 17,
+      "ties": 0,
+      "runs": 20,
+      "mean_difference": 403782.27356723836,
+      "median_difference": 309820.52645252505,
+      "min_difference": -218538.9057565909
+    }
+  },
+  "runs": [
+    {
+      "seed": 10,
+      "agent": "baseline",
+      "net": 4755265.498290373,
+      "cost": 99864.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 7,
+      "seconds": 1.4130164999987755
+    },
+    {
+      "seed": 10,
+      "agent": "current",
+      "net": 4536726.592533782,
+      "cost": 99894.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 6,
+      "seconds": 1.1968148999985715
+    },
+    {
+      "seed": 11,
+      "agent": "baseline",
+      "net": 4574041.702244604,
+      "cost": 99886.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 8,
+      "seconds": 1.1929204999978538
+    },
+    {
+      "seed": 11,
+      "agent": "current",
+      "net": 5104432.973448195,
+      "cost": 98852.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 8,
+      "seconds": 1.337438700000348
+    },
+    {
+      "seed": 12,
+      "agent": "baseline",
+      "net": 4592099.685154736,
+      "cost": 99936.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 7,
+      "seconds": 1.193206399999326
+    },
+    {
+      "seed": 12,
+      "agent": "current",
+      "net": 4601259.372324141,
+      "cost": 99936.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 7,
+      "seconds": 1.224599400000443
+    },
+    {
+      "seed": 13,
+      "agent": "baseline",
+      "net": 3545382.9976433767,
+      "cost": 99998.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 6,
+      "seconds": 1.0227121000025363
+    },
+    {
+      "seed": 13,
+      "agent": "current",
+      "net": 4571018.3922878355,
+      "cost": 99804.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 8,
+      "seconds": 1.2140240999979142
+    },
+    {
+      "seed": 14,
+      "agent": "baseline",
+      "net": 2897202.0579614853,
+      "cost": 93838.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 5,
+      "seconds": 0.9418655999979819
+    },
+    {
+      "seed": 14,
+      "agent": "current",
+      "net": 4318269.378561262,
+      "cost": 99960.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 7,
+      "seconds": 1.1499773000032292
+    },
+    {
+      "seed": 15,
+      "agent": "baseline",
+      "net": 3564434.3629444726,
+      "cost": 98918.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 4,
+      "seconds": 0.9321791000002122
+    },
+    {
+      "seed": 15,
+      "agent": "current",
+      "net": 4590871.915441637,
+      "cost": 99818.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 5,
+      "seconds": 0.9730761000027996
+    },
+    {
+      "seed": 16,
+      "agent": "baseline",
+      "net": 4548724.144316741,
+      "cost": 99734.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 7,
+      "seconds": 1.0562086999998428
+    },
+    {
+      "seed": 16,
+      "agent": "current",
+      "net": 4653509.883892274,
+      "cost": 99248.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 7,
+      "seconds": 1.2763154999993276
+    },
+    {
+      "seed": 17,
+      "agent": "baseline",
+      "net": 4567104.809283117,
+      "cost": 99942.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 10,
+      "seconds": 1.1778546999994433
+    },
+    {
+      "seed": 17,
+      "agent": "current",
+      "net": 4982248.197589955,
+      "cost": 99860.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 9,
+      "seconds": 1.0971147999989626
+    },
+    {
+      "seed": 18,
+      "agent": "baseline",
+      "net": 4578415.21000061,
+      "cost": 99916.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 7,
+      "seconds": 1.009764999998879
+    },
+    {
+      "seed": 18,
+      "agent": "current",
+      "net": 4561425.6719347555,
+      "cost": 99788.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 9,
+      "seconds": 1.125903300002392
+    },
+    {
+      "seed": 19,
+      "agent": "baseline",
+      "net": 4306982.072105741,
+      "cost": 99912.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 8,
+      "seconds": 1.0654146000015317
+    },
+    {
+      "seed": 19,
+      "agent": "current",
+      "net": 5014993.464566879,
+      "cost": 99864.0,
+      "contacts": 14996,
+      "pilots": 20,
+      "final_campaigns": 10,
+      "seconds": 1.400096500001382
+    },
+    {
+      "seed": 20,
+      "agent": "baseline",
+      "net": 4567507.188480846,
+      "cost": 99886.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 8,
+      "seconds": 1.1002435000009427
+    },
+    {
+      "seed": 20,
+      "agent": "current",
+      "net": 4656765.073025805,
+      "cost": 99908.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 9,
+      "seconds": 1.140449800001079
+    },
+    {
+      "seed": 21,
+      "agent": "baseline",
+      "net": 4096373.712550757,
+      "cost": 84350.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 5,
+      "seconds": 0.9688461000005191
+    },
+    {
+      "seed": 21,
+      "agent": "current",
+      "net": 4123965.3574050125,
+      "cost": 97836.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 7,
+      "seconds": 1.0475819999992382
+    },
+    {
+      "seed": 22,
+      "agent": "baseline",
+      "net": 4181558.433436159,
+      "cost": 99660.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 7,
+      "seconds": 1.1266760999969847
+    },
+    {
+      "seed": 22,
+      "agent": "current",
+      "net": 4385469.173109999,
+      "cost": 98034.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 6,
+      "seconds": 1.550383600002533
+    },
+    {
+      "seed": 23,
+      "agent": "baseline",
+      "net": 4147493.967182329,
+      "cost": 99292.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 7,
+      "seconds": 1.4083002000006672
+    },
+    {
+      "seed": 23,
+      "agent": "current",
+      "net": 4553547.349918051,
+      "cost": 99888.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 7,
+      "seconds": 1.1532326000015019
+    },
+    {
+      "seed": 24,
+      "agent": "baseline",
+      "net": 4513722.50334243,
+      "cost": 99118.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 5,
+      "seconds": 1.063355500002217
+    },
+    {
+      "seed": 24,
+      "agent": "current",
+      "net": 4747232.55411133,
+      "cost": 99292.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 7,
+      "seconds": 1.2709304000018165
+    },
+    {
+      "seed": 25,
+      "agent": "baseline",
+      "net": 3578843.2219644003,
+      "cost": 99982.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 6,
+      "seconds": 1.0250861000022269
+    },
+    {
+      "seed": 25,
+      "agent": "current",
+      "net": 4777228.512286188,
+      "cost": 99468.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 7,
+      "seconds": 1.1234629999999015
+    },
+    {
+      "seed": 26,
+      "agent": "baseline",
+      "net": 4646863.493974147,
+      "cost": 99936.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 7,
+      "seconds": 0.9662964999988617
+    },
+    {
+      "seed": 26,
+      "agent": "current",
+      "net": 4543938.306165077,
+      "cost": 99894.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 6,
+      "seconds": 0.9955206000013277
+    },
+    {
+      "seed": 27,
+      "agent": "baseline",
+      "net": 4313956.580518828,
+      "cost": 99718.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 7,
+      "seconds": 1.070689100000891
+    },
+    {
+      "seed": 27,
+      "agent": "current",
+      "net": 4592307.535974986,
+      "cost": 99094.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 5,
+      "seconds": 0.9925168000008853
+    },
+    {
+      "seed": 28,
+      "agent": "baseline",
+      "net": 4368223.939527173,
+      "cost": 99248.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 6,
+      "seconds": 1.0154818000009982
+    },
+    {
+      "seed": 28,
+      "agent": "current",
+      "net": 4763341.250241037,
+      "cost": 98798.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 8,
+      "seconds": 1.093088900001021
+    },
+    {
+      "seed": 29,
+      "agent": "baseline",
+      "net": 3885138.3870889964,
+      "cost": 99998.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 6,
+      "seconds": 1.1259533000011288
+    },
+    {
+      "seed": 29,
+      "agent": "current",
+      "net": 4226428.484537888,
+      "cost": 94638.0,
+      "contacts": 15000,
+      "pilots": 20,
+      "final_campaigns": 5,
+      "seconds": 1.0596275000025344
+    }
+  ]
+}
