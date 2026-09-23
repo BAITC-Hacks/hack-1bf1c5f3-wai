@@ -3,8 +3,9 @@ c1_MID_tariff_8_digital_ads,MID,,,tariff_10;tariff_11;tariff_12;tariff_13;tariff
 c2_LOW_tariff_9_push,LOW,,,tariff_10;tariff_13;tariff_14;tariff_4;tariff_5;tariff_6;tariff_7;tariff_8,tariff_9,push
 c3_MID_tariff_10_push,MID,,,tariff_5;tariff_6;tariff_7;tariff_8,tariff_10,push
 c4_LOW_tariff_8_push,LOW,,,tariff_11;tariff_12;tariff_13,tariff_8,push
-c5_HIGH_tariff_12_push,HIGH,,,tariff_11,tariff_12,push
-c6_HIGH_tariff_12_push,HIGH,LITE,MEDIUM,tariff_5;tariff_6;tariff_7;tariff_8,tariff_12,push
-c7_LOW_tariff_9_sms,LOW,LITE,LOW,tariff_14,tariff_9,sms
-c8_HIGH_tariff_12_push,HIGH,NON_USER,MEDIUM,tariff_5;tariff_6;tariff_7;tariff_8,tariff_12,push
-c9_LOW_tariff_8_sms,LOW,,HIGH,tariff_13,tariff_8,sms
+c5_HIGH_tariff_10_push,HIGH,HEAVY,,tariff_5;tariff_6;tariff_7;tariff_8,tariff_10,push
+c6_LOW_tariff_8_digital_ads,LOW,,,tariff_13,tariff_8,digital_ads
+c7_MID_tariff_8_push,MID,HEAVY,,tariff_11,tariff_8,push
+c8_MID_tariff_8_push,MID,,MEDIUM,tariff_12,tariff_8,push
+c9_MID_tariff_8_push,MID,,HIGH,tariff_12,tariff_8,push
+c10_MID_tariff_8_push,MID,NON_USER,,tariff_11,tariff_8,push

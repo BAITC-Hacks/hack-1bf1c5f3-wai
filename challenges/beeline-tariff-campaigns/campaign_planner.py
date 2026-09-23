@@ -1,14 +1,15 @@
-"""Bayesian pilot selection and resource-aware campaign planning.
+"""Bayesian beliefs and resource-aware campaign planning.
 
 Every (cell, target) hypothesis keeps a normal belief about its base lift ratio
 (the effect at channel multiplier 1.0). A pilot over a channel observes
 `base * multiplier` plus noise with std 0.804/sqrt(n) (documented by the
-organizers), so one pilot updates the belief for every channel at once.
+organizers), so one pilot updates the belief for every channel at once. Which pilots to
+run is decided in pilot_policy.py.
 """
 
 from collections import defaultdict
 from dataclasses import dataclass, field
-from math import erf, exp, isfinite, pi, sqrt
+from math import isfinite, sqrt
 from typing import Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
@@ -17,8 +18,6 @@ import pandas as pd
 from candidate_research import Hypothesis
 
 PER_CUSTOMER_NOISE_SD = 0.804
-MAX_PILOT_CUSTOMERS = 200
-MIN_PILOT_CUSTOMERS = 10
 MAX_CAMPAIGNS = 10
 MAX_CUSTOMERS_PER_CAMPAIGN = 5000
 # Paid contacts are committed on (mean - CAUTION * sd): a lucky pilot should
@@ -58,45 +57,6 @@ class Belief:
         self.precision += obs_precision
         self.weighted_sum += obs_precision * observed_ratio / multiplier
         self.pilots += 1
-
-
-def _normal_pdf(z: float) -> float:
-    return exp(-0.5 * z * z) / sqrt(2 * pi)
-
-
-def _normal_cdf(z: float) -> float:
-    return 0.5 * (1 + erf(z / sqrt(2)))
-
-
-def next_pilot(beliefs: Sequence[Belief], multiplier: float) -> Optional[Belief]:
-    """Pick the hypothesis whose pilot has the largest knowledge gradient.
-
-    The decision per cell is "best target, or nothing". A pilot is worth what
-    it is expected to improve that decision, scaled by the cell's ARPU mass.
-    """
-    by_cell: Dict[tuple, List[Belief]] = defaultdict(list)
-    for belief in beliefs:
-        by_cell[belief.hypothesis.cell.key].append(belief)
-
-    best, best_score = None, 0.0
-    for cell_beliefs in by_cell.values():
-        cell = cell_beliefs[0].hypothesis.cell
-        n = min(MAX_PILOT_CUSTOMERS, cell.size)
-        if n < MIN_PILOT_CUSTOMERS:
-            continue
-        for belief in cell_beliefs:
-            if not belief.pilotable:
-                continue
-            alternative = max([0.0] + [o.mean for o in cell_beliefs if o is not belief])
-            posterior_var = 1.0 / (belief.precision + belief.observation_precision(multiplier, n))
-            sigma = sqrt(max(belief.sd ** 2 - posterior_var, 0.0))
-            if sigma <= 0:
-                continue
-            z = -abs(belief.mean - alternative) / sigma
-            score = sigma * (z * _normal_cdf(z) + _normal_pdf(z)) * cell.arpu_sum
-            if score > best_score:
-                best, best_score = belief, score
-    return best
 
 
 @dataclass
