@@ -74,7 +74,7 @@ def next_pilot(beliefs: Sequence[Belief], multiplier: float) -> Optional[Belief]
     The decision per cell is "best target, or nothing". A pilot is worth what
     it is expected to improve that decision, scaled by the cell's ARPU mass.
     """
-    by_cell: Dict[Tuple[str, str], List[Belief]] = defaultdict(list)
+    by_cell: Dict[tuple, List[Belief]] = defaultdict(list)
     for belief in beliefs:
         by_cell[belief.hypothesis.cell.key].append(belief)
 
@@ -129,10 +129,15 @@ def plan_campaigns(
     arpu = profile["predicted_arpu"].fillna(0.0).to_numpy(dtype=float)
     current = np.full(len(profile), np.nan)  # expected lift already secured
 
-    cell_rows = {
-        (str(t), str(s)): np.asarray(rows)
-        for (t, s), rows in profile.groupby(["current_tariff", "arpu_segment"], observed=True).indices.items()
-    }
+    tariff_col = profile["current_tariff"].astype(str).to_numpy()
+    segment_col = profile["arpu_segment"].astype(str).to_numpy()
+    cell_rows = {}
+    for belief in beliefs:
+        cell = belief.hypothesis.cell
+        if cell.key not in cell_rows:
+            mask = np.isin(tariff_col, cell.current_tariffs) & (segment_col == cell.arpu_segment)
+            if mask.any():
+                cell_rows[cell.key] = np.flatnonzero(mask)
     data = profile["data_segment"].to_numpy()
     calls = profile["call_segment"].to_numpy()
     sub_segments = {}
@@ -151,7 +156,7 @@ def plan_campaigns(
                     subsets.append((d, c, rows[mask]))
         sub_segments[key] = subsets
 
-    by_cell: Dict[Tuple[str, str], List[Belief]] = defaultdict(list)
+    by_cell: Dict[tuple, List[Belief]] = defaultdict(list)
     for belief in beliefs:
         if belief.hypothesis.cell.key in cell_rows:
             by_cell[belief.hypothesis.cell.key].append(belief)
@@ -204,7 +209,7 @@ def plan_campaigns(
                         used_cost += cost * n
                         total += net
                         parts.append((rows, ratio))
-                        tariffs.append(key[0])
+                        tariffs.extend(key[0])
                     if parts and (best is None or total > best.net):
                         best = _Proposal(total, {
                             "filter_arpu_segment": segment,
@@ -226,7 +231,7 @@ def plan_campaigns(
                         if best is None or net > best.net:
                             campaign = {
                                 "filter_arpu_segment": key[1],
-                                "filter_current_tariff": key[0],
+                                "filter_current_tariff": ";".join(key[0]),
                                 "target_tariff": belief.hypothesis.target_tariff,
                                 "channel": name,
                             }
@@ -262,7 +267,7 @@ def fallback_campaigns(beliefs: Sequence[Belief], channels: dict, contacts: int)
         cell = belief.hypothesis.cell
         if belief.mean > 0 and 0 < cell.size <= min(contacts, MAX_CUSTOMERS_PER_CAMPAIGN):
             return [{
-                "campaign_name": f"fallback_{cell.current_tariff}_{belief.hypothesis.target_tariff}",
+                "campaign_name": f"fallback_{cell.name}_{belief.hypothesis.target_tariff}",
                 **cell.filters(),
                 "target_tariff": belief.hypothesis.target_tariff,
                 "channel": channel,
