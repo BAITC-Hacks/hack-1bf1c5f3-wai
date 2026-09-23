@@ -1,7 +1,10 @@
 """Candidate discovery from participant data.
 
-This module is the data lead's work area. Historical changes provide a weak
-ranking prior; only pilots can reveal effects for the evaluation audience.
+The scoring code looks up a transition effect by (current_tariff, arpu_segment),
+so a *cell* is exactly that pair: data/call segment filters only shrink the
+audience, they never change the per-customer effect. Each cell gets a few
+target-tariff hypotheses with a weak prior from the historical changes; pilots
+are what reveal the effect for the evaluation audience.
 """
 
 from dataclasses import dataclass
@@ -11,31 +14,45 @@ from typing import Dict, List, Optional, Tuple
 import numpy as np
 import pandas as pd
 
+ARPU_SEGMENTS = ("LOW", "MID", "HIGH")
+# The judged audience "noticeably differs" from the history, so the prior is
+# deliberately wide relative to typical effects (0.0-0.45).
+PRIOR_SD = 0.15
+TARGETS_PER_CELL = 3
+
 
 @dataclass(frozen=True)
-class Candidate:
+class Cell:
     current_tariff: str
     arpu_segment: str
-    data_segment: str
-    target_tariff: str
-    audience_size: int
-    baseline_arpu: float
-    prior_ratio: Optional[float]
-    prior_count: int
+    size: int
+    arpu_sum: float
 
     @property
-    def segment_key(self) -> Tuple[str, str, str]:
-        return self.current_tariff, self.arpu_segment, self.data_segment
+    def key(self) -> Tuple[str, str]:
+        return self.current_tariff, self.arpu_segment
 
     def filters(self) -> dict:
         return {
             "filter_current_tariff": self.current_tariff,
             "filter_arpu_segment": self.arpu_segment,
-            "filter_data_segment": self.data_segment,
         }
 
 
+@dataclass(frozen=True)
+class Hypothesis:
+    cell: Cell
+    target_tariff: str
+    prior_mean: float
+    prior_sd: float
+
+
 def _historical_priors(path: Optional[Path]) -> Dict[Tuple[str, str, str], Tuple[float, int]]:
+    """Map (from, to, arpu_segment) -> (expected lift ratio, observation count).
+
+    The expected ratio is the mean relative ARPU change times the share of
+    switchers from that cell who chose this target (a conversion proxy).
+    """
     if path is None or not path.is_file():
         return {}
 
@@ -47,7 +64,7 @@ def _historical_priors(path: Optional[Path]) -> Dict[Tuple[str, str, str], Tuple
     history["arpu_segment"] = pd.cut(
         history["AVG_ARPU_PREV_3M"],
         bins=[-np.inf, 1000, 5000, np.inf],
-        labels=["LOW", "MID", "HIGH"],
+        labels=list(ARPU_SEGMENTS),
     )
     history["ratio"] = (
         (history["AVG_ARPU_NEXT_3M"] - history["AVG_ARPU_PREV_3M"])
@@ -57,23 +74,36 @@ def _historical_priors(path: Optional[Path]) -> Dict[Tuple[str, str, str], Tuple
         ["tariff_plan_code_from", "tariff_plan_code_to", "arpu_segment"],
         observed=True,
     )["ratio"].agg(["mean", "count"])
+    totals = grouped.groupby(level=[0, 2], observed=True)["count"].transform("sum")
+    grouped["effect"] = grouped["mean"] * grouped["count"] / totals
     return {
-        (str(source), str(target), str(segment)): (float(row["mean"]), int(row["count"]))
+        (str(source), str(target), str(segment)): (float(row["effect"]), int(row["count"]))
         for (source, target, segment), row in grouped.iterrows()
     }
 
 
-def build_candidates(
+def build_cells(profile: pd.DataFrame) -> List[Cell]:
+    cells = (
+        profile.dropna(subset=["current_tariff", "arpu_segment"])
+        .assign(predicted_arpu=lambda df: df["predicted_arpu"].fillna(0.0))
+        .groupby(["current_tariff", "arpu_segment"], observed=True)
+        .agg(size=("ID_NUMBER", "size"), arpu_sum=("predicted_arpu", "sum"))
+        .reset_index()
+    )
+    return [
+        Cell(str(row.current_tariff), str(row.arpu_segment), int(row.size), float(row.arpu_sum))
+        for row in cells.itertuples(index=False)
+        if str(row.arpu_segment) in ARPU_SEGMENTS
+    ]
+
+
+def build_hypotheses(
     profile: pd.DataFrame,
     tariffs: pd.DataFrame,
     history_path: Optional[Path] = None,
-    limit: int = 12,
-) -> List[Candidate]:
-    """Return distinct, valid cells with one tariff hypothesis per cell.
-
-    This first-pass ranking is intentionally conservative and deterministic.
-    The data lead can improve the prior without changing the agent interface.
-    """
+    per_cell: int = TARGETS_PER_CELL,
+) -> List[Hypothesis]:
+    """Return up to `per_cell` target-tariff hypotheses for every audience cell."""
     prices = {
         str(row.tariff_plan_code): float(row.price_tariff)
         for row in tariffs[["tariff_plan_code", "price_tariff"]].itertuples(index=False)
@@ -82,53 +112,26 @@ def build_candidates(
         return []
 
     priors = _historical_priors(history_path)
-    cells = (
-        profile.dropna(subset=["current_tariff", "arpu_segment", "data_segment"])
-        .groupby(["current_tariff", "arpu_segment", "data_segment"], observed=True)
-        .agg(audience_size=("ID_NUMBER", "size"), baseline_arpu=("predicted_arpu", "sum"))
-        .reset_index()
-    )
+    hypotheses = []
+    for cell in build_cells(profile):
+        current, segment = cell.current_tariff, cell.arpu_segment
+        options = []
+        for target in prices:
+            if target == current or (current, target, segment) not in priors:
+                continue
+            effect, count = priors[(current, target, segment)]
+            # shrink effects seen on a handful of switchers towards zero
+            options.append((effect * count / (count + 5), target))
 
-    candidates = []
-    for cell in cells.itertuples(index=False):
-        current = str(cell.current_tariff)
-        segment = str(cell.arpu_segment)
-        data_segment = str(cell.data_segment)
-        size = int(cell.audience_size)
-        if current not in prices or segment not in {"LOW", "MID", "HIGH"}:
-            continue
-        if data_segment not in {"NON_USER", "LITE", "HEAVY"} or not 20 <= size <= 5000:
-            continue
-
-        alternatives = [target for target, price in prices.items() if price > prices[current]]
-        if not alternatives:
-            continue
-
-        def rank(target: str) -> Tuple[float, float]:
-            prior, count = priors.get((current, target, segment), (0.0, 0))
-            evidence = max(-0.3, min(0.3, prior)) * count / (count + 50)
-            price_distance = abs(prices[target] - prices[current])
-            return evidence, -price_distance
-
-        target = max(alternatives, key=rank)
-        prior_ratio, prior_count = priors.get((current, target, segment), (None, 0))
-        candidates.append(
-            Candidate(
-                current_tariff=current,
-                arpu_segment=segment,
-                data_segment=data_segment,
-                target_tariff=target,
-                audience_size=size,
-                baseline_arpu=float(cell.baseline_arpu),
-                prior_ratio=prior_ratio,
-                prior_count=prior_count,
+        if not options and current in prices:
+            # no history for this cell: nearest pricier tariffs, neutral prior
+            pricier = sorted(
+                (price - prices[current], target)
+                for target, price in prices.items()
+                if price > prices[current]
             )
-        )
-    def priority(candidate: Candidate) -> Tuple[float, float]:
-        if candidate.prior_ratio is None:
-            return 0.0, candidate.baseline_arpu
-        reliability = candidate.prior_count / (candidate.prior_count + 50)
-        weak_ratio = max(0.0, min(0.3, candidate.prior_ratio)) * reliability
-        return weak_ratio * candidate.baseline_arpu, candidate.baseline_arpu
+            options = [(0.0, target) for _, target in pricier]
 
-    return sorted(candidates, key=priority, reverse=True)[:limit]
+        for mean, target in sorted(options, reverse=True)[:per_cell]:
+            hypotheses.append(Hypothesis(cell, target, mean, PRIOR_SD))
+    return hypotheses

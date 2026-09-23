@@ -15,8 +15,7 @@ class AgentContractTests(unittest.TestCase):
         env, _ = make_mock_env(seed=42)
         campaigns = Agent().act(env)
 
-        self.assertGreater(len(env.pilot_history), 0)
-        self.assertLessEqual(len(env.pilot_history), 20)
+        self.assertEqual(len(env.pilot_history), 20)
         self.assertGreaterEqual(len(campaigns), 1)
         self.assertLessEqual(len(campaigns), 10)
 
